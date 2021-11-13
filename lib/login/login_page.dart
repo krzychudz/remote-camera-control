@@ -2,7 +2,9 @@ import 'package:app/login/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
-  static String routeName = "/login";
+  static Route route() {
+    return MaterialPageRoute<void>(builder: (_) => LoginPage());
+  }
 
   const LoginPage({Key? key}) : super(key: key);
 
