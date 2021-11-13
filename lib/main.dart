@@ -1,12 +1,13 @@
-import 'package:app/auth/bloc/authentication_bloc.dart';
-import 'package:app/auth/bloc/authentication_state.dart';
-import 'package:app/home/home_page.dart';
-import 'package:app/login/login_page.dart';
-import 'package:app/repositories/authentication_repository.dart';
-import 'package:app/repositories/user_repository.dart';
-import 'package:app/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../auth/bloc/authentication_bloc.dart';
+import '../../auth/bloc/authentication_state.dart';
+import '../../home/home_page.dart';
+import '../../login/login_page.dart';
+import '../../repositories/authentication_repository.dart';
+import '../../repositories/user_repository.dart';
+import '../../splash/splash_screen.dart';
 
 void main() {
   runApp(MyApp(
@@ -58,6 +59,7 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'SmartCam',
+      navigatorKey: _navKey,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -66,10 +68,12 @@ class _MainAppState extends State<MainApp> {
           listener: (context, state) {
             switch (state.status) {
               case AuthenticationStatus.authenticated:
+                print("AUTH!");
                 _navigator?.pushAndRemoveUntil(
                     HomePage.route(), (route) => false);
                 break;
               case AuthenticationStatus.unauthenticated:
+                print("UNAUTH!");
                 _navigator?.pushAndRemoveUntil(
                     LoginPage.route(), (route) => false);
                 break;

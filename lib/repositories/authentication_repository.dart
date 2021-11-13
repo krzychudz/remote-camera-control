@@ -7,6 +7,7 @@ class AuthenticationRepository {
 
   Stream<AuthenticationStatus> get status async* {
     await Future<void>.delayed(const Duration(seconds: 1));
+    //TODO: Check if there is stored token
     yield AuthenticationStatus.unauthenticated;
     yield* _authController.stream;
   }
