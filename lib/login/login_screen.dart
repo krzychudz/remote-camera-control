@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -68,16 +69,18 @@ class LoginForm extends StatelessWidget {
   RichText _buildRegisterSection() {
     return RichText(
       textAlign: TextAlign.center,
-      text: const TextSpan(
+      text: TextSpan(
         text: "Nie masz konta?\n",
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.black,
           fontSize: 16,
         ),
         children: [
           TextSpan(
             text: 'Zarejestruj się',
-            style: TextStyle(
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => print("Register clicked"),
+            style: const TextStyle(
               decoration: TextDecoration.underline,
             ),
           ),
