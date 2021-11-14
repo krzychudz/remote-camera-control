@@ -18,6 +18,7 @@ class AuthenticationBloc
     on<AuthenticationLogoutRequested>(_onAuthLogoutRequested);
 
     _authStatusSubscription = _authenticationRepository.status.listen((status) {
+      print("New Auth state: $status");
       add(
         AuthenticationStatusChanged(status),
       );
@@ -39,6 +40,7 @@ class AuthenticationBloc
     AuthenticationStatusChanged event,
     Emitter<AuthenticationState> emit,
   ) async {
+    print("New Event: $event");
     switch (event.status) {
       case AuthenticationStatus.unauthenticated:
         return emit(const AuthenticationState.unauthenticated());

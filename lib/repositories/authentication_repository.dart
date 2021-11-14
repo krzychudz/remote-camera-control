@@ -18,7 +18,7 @@ class AuthenticationRepository {
   }) async {
     //TODO: Auth user on backend
     await Future.delayed(
-      const Duration(milliseconds: 300),
+      const Duration(seconds: 3),
       () => _authController.add(AuthenticationStatus.authenticated),
     );
   }

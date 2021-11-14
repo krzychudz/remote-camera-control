@@ -1,5 +1,8 @@
+import 'package:app/login/bloc/login_bloc.dart';
 import 'package:app/login/login_screen.dart';
+import 'package:app/repositories/authentication_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginPage extends StatelessWidget {
   static Route route() {
@@ -10,6 +13,16 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LoginScreen();
+    return Scaffold(
+      body: BlocProvider(
+        create: (_) => LoginBloc(
+          authenticationRepository:
+              RepositoryProvider.of<AuthenticationRepository>(context),
+        ),
+        child: SafeArea(
+          child: LoginScreen(),
+        ),
+      ),
+    );
   }
 }

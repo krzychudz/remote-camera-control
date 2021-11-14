@@ -1,14 +1,29 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
+
+import '../../login/bloc/login_bloc.dart';
+import '../../login/bloc/login_state.dart';
+import '../../login/bloc/login_event.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-          child: Column(
+    return BlocListener<LoginBloc, LoginState>(
+      listener: (context, state) => {
+        if (state.status.isSubmissionFailure)
+          {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(const SnackBar(
+                content: Text("Authentication Failure"),
+              ))
+          }
+      },
+      child: Column(
         children: [
           Flexible(
             flex: 1,
@@ -24,7 +39,7 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
         ],
-      )),
+      ),
     );
   }
 }
@@ -35,34 +50,73 @@ class LoginForm extends StatelessWidget {
   }) : super(key: key);
 
   Widget _buildLoginFormField() {
-    return const TextField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: 'Username',
-      ),
+    return BlocBuilder<LoginBloc, LoginState>(
+      buildWhen: (previous, current) => previous.username != current.username,
+      builder: (context, state) {
+        return TextField(
+          textInputAction: TextInputAction.next,
+          key: const Key('loginForm_usernameInput_textField'),
+          onChanged: (username) => context.read<LoginBloc>().add(
+                LoginUsernameChanged(username),
+              ),
+          decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: 'Username',
+              errorText:
+                  state.username.invalid ? 'Username cannot be empty' : null),
+        );
+      },
     );
   }
 
   Widget _buildPasswordFormField() {
-    return const TextField(
-      obscureText: true,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: 'Password',
-      ),
+    return BlocBuilder<LoginBloc, LoginState>(
+      buildWhen: (previous, current) => previous.password != current.password,
+      builder: (context, state) {
+        return TextField(
+          textInputAction: TextInputAction.done,
+          obscureText: true,
+          key: const Key('loginForm_passwordInput_textField'),
+          onChanged: (password) => context.read<LoginBloc>().add(
+                LoginPasswordChanged(password),
+              ),
+          decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: 'Password',
+              errorText:
+                  state.password.invalid ? 'Password cannot be empty' : null),
+        );
+      },
     );
   }
 
   Widget _buildSubmitButton() {
-    return SizedBox(
-      width: 200,
-      height: 50,
-      child: ElevatedButton(
-        child: const Text(
-          "Login",
-        ),
-        onPressed: () => {},
-      ),
+    return BlocBuilder<LoginBloc, LoginState>(
+      buildWhen: (previous, current) => previous.status != current.status,
+      builder: (context, state) {
+        return Column(
+          children: [
+            if (state.status.isSubmissionInProgress)
+              const Padding(
+                padding: EdgeInsets.only(bottom: 16.0),
+                child: CircularProgressIndicator(),
+              ),
+            SizedBox(
+              width: 150,
+              height: 50,
+              child: ElevatedButton(
+                key: const Key("loginForm_submit_elevatedButton"),
+                child: const Text(
+                  "Login",
+                ),
+                onPressed: state.status.isValidated
+                    ? () => _onSubmitPressed(context)
+                    : null,
+              ),
+            )
+          ],
+        );
+      },
     );
   }
 
@@ -87,6 +141,13 @@ class LoginForm extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _onSubmitPressed(BuildContext context) {
+    FocusManager.instance.primaryFocus?.unfocus();
+    context.read<LoginBloc>().add(
+          const LoginSubmitted(),
+        );
   }
 
   @override
