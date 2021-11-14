@@ -38,7 +38,7 @@ class LoginForm extends StatelessWidget {
     return const TextField(
       decoration: InputDecoration(
         border: OutlineInputBorder(),
-        labelText: 'Login',
+        labelText: 'Username',
       ),
     );
   }
@@ -59,7 +59,7 @@ class LoginForm extends StatelessWidget {
       height: 50,
       child: ElevatedButton(
         child: const Text(
-          "Zaloguj",
+          "Login",
         ),
         onPressed: () => {},
       ),
