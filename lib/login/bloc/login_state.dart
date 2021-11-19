@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 
-import '../../login/model/password.dart';
-import '../../login/model/username.dart';
+import '../../../../common/model/password.dart';
+import '../../../../common/model/username.dart';
 
 class LoginState extends Equatable {
   const LoginState({
