@@ -1,4 +1,7 @@
+import 'package:app/register/bloc/register_cubit.dart';
+import 'package:app/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../register/register_screen.dart';
 
@@ -11,6 +14,11 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RegisterScreen();
+    return BlocProvider<RegisterCubit>(
+      create: (_) => RegisterCubit(
+        userRepository: RepositoryProvider.of<UserRepository>(context),
+      ),
+      child: RegisterScreen(),
+    );
   }
 }
