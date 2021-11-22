@@ -49,6 +49,13 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   void onSubmited() async {
+    if (state.password.value != state.rePassword.value) {
+      emit(
+        state.copyWith(status: FormzStatus.submissionFailure),
+      );
+      return;
+    }
+
     if (state.status.isValidated) {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       try {

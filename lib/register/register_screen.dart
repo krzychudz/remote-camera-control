@@ -8,14 +8,37 @@ import 'package:app/register/bloc/register_state.dart';
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
-  void _showSnackbarMessage(BuildContext context, String message) {
+  void _showSnackbarMessage(
+      {required BuildContext context, required String message, bool? isError}) {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
+          backgroundColor: isError == true
+              ? Theme.of(context).errorColor
+              : Theme.of(context).snackBarTheme.backgroundColor,
           content: Text(message),
         ),
       );
+  }
+
+  void _onSubmissionFailure(RegisterState state, BuildContext context) {
+    var arePasswordEqual = state.password.value == state.rePassword.value;
+    _showSnackbarMessage(
+      context: context,
+      message: arePasswordEqual
+          ? "Registration Failure"
+          : "Passwords must be the same",
+      isError: !arePasswordEqual,
+    );
+  }
+
+  void _onSubmissionSuccess(BuildContext context) {
+    _showSnackbarMessage(
+      context: context,
+      message: "Your account has been created",
+    );
+    Navigator.of(context).pop();
   }
 
   @override
@@ -25,16 +48,12 @@ class RegisterScreen extends StatelessWidget {
         title: const Text("Registration"),
       ),
       body: BlocListener<RegisterCubit, RegisterState>(
-        listener: (context, state) => {
-          if (state.status.isSubmissionFailure)
-            {
-              _showSnackbarMessage(context, "Registration Failure"),
-            }
-          else if (state.status.isSubmissionSuccess)
-            {
-              _showSnackbarMessage(context, "Your account has been created"),
-              Navigator.of(context).pop()
-            }
+        listener: (context, state) {
+          if (state.status.isSubmissionFailure) {
+            _onSubmissionFailure(state, context);
+          } else if (state.status.isSubmissionSuccess) {
+            _onSubmissionSuccess(context);
+          }
         },
         child: const RegistrationForm(),
       ),
