@@ -1,3 +1,5 @@
+import 'package:app/dashboard/dashboard_screen.dart';
+import 'package:app/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,10 +12,26 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _bottomBarSelectedIndex = 0;
 
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   void _onItemTapped(int index) {
     setState(() {
       _bottomBarSelectedIndex = index;
     });
+    _pageController.animateToPage(index,
+        duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
   }
 
   String _getTitleForTab(int index) {
@@ -24,6 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  final List<Widget> _pagesList = const [
+    DashboardScreen(),
+    SettingsScreen(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +55,14 @@ class _HomeScreenState extends State<HomeScreen> {
           _getTitleForTab(_bottomBarSelectedIndex),
         ),
       ),
+      floatingActionButton: _bottomBarSelectedIndex != 0
+          ? null
+          : FloatingActionButton(
+              child: const Icon(
+                Icons.add,
+              ),
+              onPressed: () {},
+            ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _bottomBarSelectedIndex,
         showUnselectedLabels: false,
@@ -47,8 +78,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: const Center(
-        child: Text("HOME"),
+      body: PageView(
+        controller: _pageController,
+        children: _pagesList,
       ),
     );
   }
