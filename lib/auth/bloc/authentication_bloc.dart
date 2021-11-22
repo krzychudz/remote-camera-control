@@ -40,7 +40,6 @@ class AuthenticationBloc
     AuthenticationStatusChanged event,
     Emitter<AuthenticationState> emit,
   ) async {
-    print("New Event: $event");
     switch (event.status) {
       case AuthenticationStatus.unauthenticated:
         return emit(const AuthenticationState.unauthenticated());

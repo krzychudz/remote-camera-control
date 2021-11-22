@@ -1,3 +1,4 @@
+import 'package:app/register/register_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,6 +49,10 @@ class LoginForm extends StatelessWidget {
   const LoginForm({
     Key? key,
   }) : super(key: key);
+
+  void onRegisterClicked(BuildContext context) {
+    Navigator.of(context).push(RegisterPage.route());
+  }
 
   Widget _buildLoginFormField() {
     return BlocBuilder<LoginBloc, LoginState>(
@@ -120,7 +125,7 @@ class LoginForm extends StatelessWidget {
     );
   }
 
-  RichText _buildRegisterSection() {
+  RichText _buildRegisterSection(BuildContext context) {
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
@@ -133,7 +138,7 @@ class LoginForm extends StatelessWidget {
           TextSpan(
             text: 'Zarejestruj się',
             recognizer: TapGestureRecognizer()
-              ..onTap = () => print("Register clicked"),
+              ..onTap = () => onRegisterClicked(context),
             style: const TextStyle(
               decoration: TextDecoration.underline,
             ),
@@ -169,7 +174,7 @@ class LoginForm extends StatelessWidget {
         Expanded(
           child: Container(
             alignment: Alignment.bottomCenter,
-            child: _buildRegisterSection(),
+            child: _buildRegisterSection(context),
           ),
         ),
       ],
