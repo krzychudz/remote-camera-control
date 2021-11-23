@@ -11,7 +11,7 @@ class CameraCubit extends Cubit<CameraState> {
 
   final CameraRepository _cameraRepository;
 
-  void _onCameraFetched() async {
+  void onCameraFetched() async {
     emit(
       state.copyWith(status: CameraFetchStatus.inProgress),
     );

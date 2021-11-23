@@ -1,4 +1,4 @@
-import 'package:app/dashboard/dashboard_screen.dart';
+import 'package:app/dashboard/dashboard_page.dart';
 import 'package:app/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -12,26 +12,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _bottomBarSelectedIndex = 0;
 
-  late PageController _pageController;
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController();
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
   void _onItemTapped(int index) {
     setState(() {
       _bottomBarSelectedIndex = index;
     });
-    _pageController.animateToPage(index,
-        duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
   }
 
   String _getTitleForTab(int index) {
@@ -42,9 +26,9 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  final List<Widget> _pagesList = const [
-    DashboardScreen(),
-    SettingsScreen(),
+  final List<Widget> _pagesList = [
+    const DashboardPage(),
+    const SettingsScreen(),
   ];
 
   @override
@@ -78,8 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: PageView(
-        controller: _pageController,
+      body: IndexedStack(
+        index: _bottomBarSelectedIndex,
         children: _pagesList,
       ),
     );
