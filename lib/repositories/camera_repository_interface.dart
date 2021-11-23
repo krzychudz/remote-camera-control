@@ -1,3 +1,5 @@
+import '../../common/model/camera/camera.dart';
+
 abstract class CameraRepositoryInterface {
-  void getCameras();
+  Future<List<Camera>> getCameras();
 }
