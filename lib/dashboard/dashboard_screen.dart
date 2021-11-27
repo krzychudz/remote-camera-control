@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../common/model/camera/camera.dart';
 import '../../dashboard/bloc/camera_bloc.dart';
 import '../../dashboard/bloc/camera_state.dart';
+import '../../widgets/header.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -49,7 +50,9 @@ class CamerasList extends StatelessWidget {
       width: double.infinity,
       child: ListView(
         children: [
-          const Text("Cameras"),
+          const Header(
+            headerTitle: "Cameras",
+          ),
           ...camerasData.map(
             (camera) => CameraView(
               cameraData: camera,
