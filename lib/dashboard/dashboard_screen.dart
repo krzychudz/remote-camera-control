@@ -74,12 +74,81 @@ class CameraView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return GestureDetector(
+      onTap: () {
+        //TODO
+        print("image tapped");
+      },
+      child: SizedBox(
+        height: 200,
+        child: Stack(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              child: Image.network(
+                cameraData.cameraStreamUrl ?? "",
+                fit: BoxFit.fill,
+              ),
+            ),
+            CameraHeader(
+              cameraName: cameraData.cameraName ?? "Unknown",
+              cameraLocation: cameraData.cameraLocation ?? "Unknown",
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CameraHeader extends StatelessWidget {
+  const CameraHeader({
+    Key? key,
+    required this.cameraName,
+    required this.cameraLocation,
+  }) : super(key: key);
+
+  final String cameraName;
+  final String cameraLocation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+      ),
       width: double.infinity,
-      height: 200,
-      child: Image.network(
-        cameraData.cameraStreamUrl ?? "",
-        fit: BoxFit.fill,
+      height: 40,
+      color: const Color(0xAADAE0E3),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            cameraName,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: Color(0xFF3D4548),
+            ),
+          ),
+          Row(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(right: 8),
+                child: Icon(Icons.pin_drop),
+              ),
+              Text(
+                cameraLocation,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF3D4548),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
