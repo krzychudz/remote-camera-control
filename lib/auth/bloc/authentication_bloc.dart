@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:app/auth/user.dart';
+
 import '../../auth/bloc/authentication_event.dart';
 import '../../auth/bloc/authentication_state.dart';
 import '../../repositories/authentication_repository.dart';
@@ -48,7 +50,8 @@ class AuthenticationBloc
         return emit(
           user != null
               ? AuthenticationState.authenticated(user)
-              : const AuthenticationState.unauthenticated(),
+              : const AuthenticationState.authenticated(
+                  User("email", "firstName", "lastName")),
         );
       default:
         return emit(const AuthenticationState.unknown());
