@@ -1,3 +1,5 @@
+import 'package:app/auth/bloc/authentication_bloc.dart';
+import 'package:app/auth/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -50,6 +52,9 @@ class UserInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final User userInfo =
+        context.select((AuthenticationBloc bloc) => bloc.state.user);
+
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: 16,
@@ -61,7 +66,7 @@ class UserInfoSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text("Name"),
-              const Text("Test Name"),
+              Text(userInfo.firstName),
             ],
           ),
           const SizedBox(
@@ -71,7 +76,7 @@ class UserInfoSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text("Last Name"),
-              const Text("Last Name"),
+              Text(userInfo.lastName),
             ],
           ),
           const SizedBox(
@@ -81,7 +86,7 @@ class UserInfoSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text("Email"),
-              const Text("example@gmail.com"),
+              Text(userInfo.email),
             ],
           )
         ],

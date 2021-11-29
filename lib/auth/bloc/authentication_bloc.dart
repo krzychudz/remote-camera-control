@@ -20,7 +20,6 @@ class AuthenticationBloc
     on<AuthenticationLogoutRequested>(_onAuthLogoutRequested);
 
     _authStatusSubscription = _authenticationRepository.status.listen((status) {
-      print("New Auth state: $status");
       add(
         AuthenticationStatusChanged(status),
       );
@@ -50,8 +49,7 @@ class AuthenticationBloc
         return emit(
           user != null
               ? AuthenticationState.authenticated(user)
-              : const AuthenticationState.authenticated(
-                  User("email", "firstName", "lastName")),
+              : const AuthenticationState.unauthenticated(),
         );
       default:
         return emit(const AuthenticationState.unknown());
