@@ -62,35 +62,48 @@ class UserInfoSection extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text("Name"),
-              Text(userInfo.firstName),
-            ],
+          UserInfoRow(
+            label: "First Name",
+            value: userInfo.firstName,
           ),
           const SizedBox(
             height: 8,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text("Last Name"),
-              Text(userInfo.lastName),
-            ],
+          UserInfoRow(
+            label: "Last Name",
+            value: userInfo.lastName,
           ),
           const SizedBox(
             height: 8,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text("Email"),
-              Text(userInfo.email),
-            ],
-          )
+          UserInfoRow(
+            label: "Email",
+            value: userInfo.email,
+          ),
         ],
       ),
+    );
+  }
+}
+
+class UserInfoRow extends StatelessWidget {
+  const UserInfoRow({
+    Key? key,
+    required this.value,
+    required this.label,
+  }) : super(key: key);
+
+  final String value;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(label),
+        Text(value),
+      ],
     );
   }
 }
