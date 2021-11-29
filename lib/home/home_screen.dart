@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (index == 0) {
       return "Dashboard";
     } else {
-      return "Settings";
+      return "Account";
     }
   }
 
@@ -57,8 +57,8 @@ class _HomeScreenState extends State<HomeScreen> {
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: "Settings",
+            icon: Icon(Icons.person),
+            label: "Account",
           ),
         ],
       ),

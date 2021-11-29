@@ -4,8 +4,7 @@ class UserRepository {
   User? _user;
 
   Future<User?> getUser() async {
-    if (_user != null) return _user;
-    //TODO get user from backend
+    return User("tmp_email@gmail.com", "John", "Smith");
   }
 
   Future<bool> registerUser({username, password}) async {

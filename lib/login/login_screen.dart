@@ -1,4 +1,3 @@
-import 'package:app/register/register_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +6,8 @@ import 'package:formz/formz.dart';
 import '../../login/bloc/login_bloc.dart';
 import '../../login/bloc/login_state.dart';
 import '../../login/bloc/login_event.dart';
+
+import '../../register/register_page.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -114,7 +115,8 @@ class LoginForm extends StatelessWidget {
                 child: const Text(
                   "Login",
                 ),
-                onPressed: state.status.isValidated
+                onPressed: state.status.isValidated &&
+                        !state.status.isSubmissionInProgress
                     ? () => _onSubmitPressed(context)
                     : null,
               ),
