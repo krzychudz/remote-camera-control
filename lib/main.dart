@@ -9,6 +9,8 @@ import '../../repositories/authentication_repository.dart';
 import '../../repositories/user_repository.dart';
 import '../../splash/splash_screen.dart';
 
+import '../../navigation/router_generator.dart' as router;
+
 void main() {
   runApp(MyApp(
     authenticationRepository: AuthenticationRepository(),
@@ -73,13 +75,17 @@ class _MainAppState extends State<MainApp> {
             switch (state.status) {
               case AuthenticationStatus.authenticated:
                 print("AUTH!");
-                _navigator?.pushAndRemoveUntil(
-                    HomePage.route(), (route) => false);
+                _navigator?.pushNamedAndRemoveUntil(
+                  "/home",
+                  (route) => false,
+                );
                 break;
               case AuthenticationStatus.unauthenticated:
                 print("UNAUTH!");
-                _navigator?.pushAndRemoveUntil(
-                    LoginPage.route(), (route) => false);
+                _navigator?.pushNamedAndRemoveUntil(
+                  "/login",
+                  (route) => false,
+                );
                 break;
               default:
                 break;
@@ -88,7 +94,8 @@ class _MainAppState extends State<MainApp> {
           child: child,
         );
       },
-      onGenerateRoute: (_) => SplashScreen.route(),
+      initialRoute: "/",
+      onGenerateRoute: router.generateRoute,
     );
   }
 }

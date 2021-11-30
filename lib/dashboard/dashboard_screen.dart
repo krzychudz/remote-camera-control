@@ -74,8 +74,9 @@ class CameraView extends StatelessWidget {
   final Camera cameraData;
 
   void _onCameraClicked(Camera cameraInfo, BuildContext context) {
-    Navigator.of(context).push(
-      LivestreamPage.route(cameraInfo),
+    Navigator.of(context).pushNamed(
+      "/livestream",
+      arguments: cameraData.toJson(),
     );
   }
 

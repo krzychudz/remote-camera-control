@@ -13,7 +13,7 @@ class LivestreamPage extends StatelessWidget {
     );
   }
 
-  final Camera cameraData;
+  final Camera? cameraData;
 
   @override
   Widget build(BuildContext context) {
