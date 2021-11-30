@@ -1,17 +1,22 @@
+import 'package:app/common/model/camera/camera.dart';
 import 'package:app/livestream/livestream_screen.dart';
 import 'package:flutter/material.dart';
 
 class LivestreamPage extends StatelessWidget {
-  const LivestreamPage({Key? key}) : super(key: key);
+  const LivestreamPage({Key? key, required this.cameraData}) : super(key: key);
 
-  static Route route() {
+  static Route route(Camera camera) {
     return MaterialPageRoute<void>(
-      builder: (_) => LivestreamPage(),
+      builder: (_) => LivestreamPage(
+        cameraData: camera,
+      ),
     );
   }
 
+  final Camera cameraData;
+
   @override
   Widget build(BuildContext context) {
-    return LivestreamScreen();
+    return LivestreamScreen(camera: cameraData);
   }
 }

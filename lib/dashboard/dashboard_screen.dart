@@ -1,3 +1,4 @@
+import 'package:app/livestream/livestream_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -72,13 +73,16 @@ class CameraView extends StatelessWidget {
 
   final Camera cameraData;
 
+  void _onCameraClicked(Camera cameraInfo, BuildContext context) {
+    Navigator.of(context).push(
+      LivestreamPage.route(cameraInfo),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        //TODO
-        print("image tapped");
-      },
+      onTap: () => _onCameraClicked(cameraData, context),
       child: SizedBox(
         height: 200,
         child: Stack(
