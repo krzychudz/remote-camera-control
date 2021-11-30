@@ -7,13 +7,13 @@ class LivestreamScreen extends StatelessWidget {
     required this.camera,
   }) : super(key: key);
 
-  final Camera camera;
+  final Camera? camera;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Livestream ${camera.cameraName}'),
+        title: Text('Livestream ${camera?.cameraName}'),
       ),
       body: Container(
         child: Center(

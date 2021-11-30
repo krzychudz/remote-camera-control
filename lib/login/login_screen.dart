@@ -7,8 +7,6 @@ import '../../login/bloc/login_bloc.dart';
 import '../../login/bloc/login_state.dart';
 import '../../login/bloc/login_event.dart';
 
-import '../../register/register_page.dart';
-
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -52,7 +50,9 @@ class LoginForm extends StatelessWidget {
   }) : super(key: key);
 
   void onRegisterClicked(BuildContext context) {
-    Navigator.of(context).push(RegisterPage.route());
+    Navigator.of(context).pushNamed(
+      "/register",
+    );
   }
 
   Widget _buildLoginFormField() {
