@@ -25,10 +25,14 @@ class LoginScreen extends StatelessWidget {
       },
       child: Column(
         children: [
-          Flexible(
+          Expanded(
             flex: 1,
             child: Container(
-              color: Colors.red,
+              alignment: Alignment.center,
+              child: Image.asset(
+                "assets/images/SmartCamLogoAlpha.png",
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           const Flexible(
