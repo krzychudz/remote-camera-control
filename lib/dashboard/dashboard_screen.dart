@@ -1,3 +1,4 @@
+import 'package:app/livestream/livestream_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -72,13 +73,17 @@ class CameraView extends StatelessWidget {
 
   final Camera cameraData;
 
+  void _onCameraClicked(Camera cameraInfo, BuildContext context) {
+    Navigator.of(context).pushNamed(
+      "/livestream",
+      arguments: cameraData.toJson(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        //TODO
-        print("image tapped");
-      },
+      onTap: () => _onCameraClicked(cameraData, context),
       child: SizedBox(
         height: 200,
         child: Stack(
@@ -88,6 +93,12 @@ class CameraView extends StatelessWidget {
               child: Image.network(
                 cameraData.cameraStreamUrl ?? "",
                 fit: BoxFit.fill,
+                errorBuilder: (context, error, stackTrace) =>
+                    const CameraLoadingPlaceholder(),
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return const CameraLoadingPlaceholder();
+                },
               ),
             ),
             CameraHeader(
@@ -97,6 +108,20 @@ class CameraView extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class CameraLoadingPlaceholder extends StatelessWidget {
+  const CameraLoadingPlaceholder({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 40,
+      ),
+      child: Image.asset("assets/images/camera_placeholder.png"),
     );
   }
 }

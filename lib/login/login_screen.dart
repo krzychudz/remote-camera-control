@@ -7,8 +7,6 @@ import '../../login/bloc/login_bloc.dart';
 import '../../login/bloc/login_state.dart';
 import '../../login/bloc/login_event.dart';
 
-import '../../register/register_page.dart';
-
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -27,10 +25,14 @@ class LoginScreen extends StatelessWidget {
       },
       child: Column(
         children: [
-          Flexible(
+          Expanded(
             flex: 1,
             child: Container(
-              color: Colors.red,
+              alignment: Alignment.center,
+              child: Image.asset(
+                "assets/images/SmartCamLogoAlpha.png",
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           const Flexible(
@@ -52,7 +54,9 @@ class LoginForm extends StatelessWidget {
   }) : super(key: key);
 
   void onRegisterClicked(BuildContext context) {
-    Navigator.of(context).push(RegisterPage.route());
+    Navigator.of(context).pushNamed(
+      "/register",
+    );
   }
 
   Widget _buildLoginFormField() {

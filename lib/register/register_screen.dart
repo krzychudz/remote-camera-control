@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
-import 'package:app/register/bloc/register_cubit.dart';
-import 'package:app/register/bloc/register_state.dart';
+import '../../register/bloc/register_cubit.dart';
+import '../../register/bloc/register_state.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
