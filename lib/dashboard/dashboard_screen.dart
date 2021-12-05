@@ -93,6 +93,12 @@ class CameraView extends StatelessWidget {
               child: Image.network(
                 cameraData.cameraStreamUrl ?? "",
                 fit: BoxFit.fill,
+                errorBuilder: (context, error, stackTrace) =>
+                    const CameraLoadingPlaceholder(),
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return const CameraLoadingPlaceholder();
+                },
               ),
             ),
             CameraHeader(
@@ -102,6 +108,20 @@ class CameraView extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class CameraLoadingPlaceholder extends StatelessWidget {
+  const CameraLoadingPlaceholder({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 40,
+      ),
+      child: Image.asset("assets/images/camera_placeholder.png"),
     );
   }
 }

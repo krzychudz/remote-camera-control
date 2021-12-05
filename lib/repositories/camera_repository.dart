@@ -8,11 +8,11 @@ class CameraRepository implements CameraRepositoryInterface {
     var mockedCameras = [
       Camera(
           cameraName: "Camera1",
-          cameraStreamUrl: "https://picsum.photos/200/300",
+          cameraStreamUrl: "http://localhost:3000/frames/frame.jpg",
           cameraLocation: "Room1"),
       Camera(
           cameraName: "Camera2",
-          cameraStreamUrl: "https://picsum.photos/200/300",
+          cameraStreamUrl: "http://192.168.0.21:3000/frames/frame.jpg",
           cameraLocation: "Room2")
     ];
 
