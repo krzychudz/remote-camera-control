@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:typed_data';
-
-import 'package:app/network/services/camera_service.dart';
+import 'package:app/network/services/camera/camera_service_interface.dart';
 
 class LivestreamManager {
   LivestreamManager({
@@ -10,7 +9,7 @@ class LivestreamManager {
     required this.cameraService,
   });
 
-  final CameraService cameraService;
+  final CameraServiceInterface cameraService;
 
   final String streamUrl;
   final int intervalMiliseconds;
