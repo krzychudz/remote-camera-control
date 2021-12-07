@@ -5,9 +5,9 @@ class ApiClient {
 
   ApiClient._internal();
 
-  static final _singleton = ApiClient._internal();
+  static ApiClient? _instance;
 
-  factory ApiClient() => _singleton;
+  factory ApiClient() => _instance ??= ApiClient._internal();
 
   Dio get client => _dio;
 
