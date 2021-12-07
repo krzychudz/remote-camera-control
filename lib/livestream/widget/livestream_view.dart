@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:typed_data';
 
 import '../../livestream/widget/livestream_manager.dart';
-import '../../network/services/camera_service.dart';
+import '../../network/services/camera/camera_service.dart';
 
 class LivestreamView extends StatefulWidget {
   const LivestreamView({

@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:app/network/services/camera/camera_service_interface.dart';
