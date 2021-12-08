@@ -2,9 +2,11 @@ import 'dart:typed_data';
 
 import 'package:app/network/services/camera/camera_service_interface.dart';
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../api_client.dart';
 
+@LazySingleton(as: CameraServiceInterface)
 class CameraService extends CameraServiceInterface {
   static CameraService? _instance;
 
