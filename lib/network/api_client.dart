@@ -1,14 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 
+@Singleton()
 class ApiClient {
   late final _dio = createDio();
-
-  ApiClient._internal();
-
-  static ApiClient? _instance;
-
-  factory ApiClient() => _instance ??= ApiClient._internal();
-
   Dio get client => _dio;
 
   static Dio createDio() {

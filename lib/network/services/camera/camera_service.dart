@@ -8,18 +8,16 @@ import '../../api_client.dart';
 
 @LazySingleton(as: CameraServiceInterface)
 class CameraService extends CameraServiceInterface {
-  static CameraService? _instance;
+  CameraService(this.apiClient);
 
-  factory CameraService() => _instance ??= CameraService._internal();
-
-  CameraService._internal();
+  final ApiClient apiClient;
 
   @override
   Future<Uint8List> getCameraFrame(String cameraStreamUrl) async {
-    var response = await ApiClient().client.get<List<int>>(
-          cameraStreamUrl,
-          options: Options(responseType: ResponseType.bytes),
-        );
+    var response = await apiClient.client.get<List<int>>(
+      cameraStreamUrl,
+      options: Options(responseType: ResponseType.bytes),
+    );
     return Uint8List.fromList(response.data!);
   }
 }
