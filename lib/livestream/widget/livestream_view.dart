@@ -1,3 +1,5 @@
+import 'package:app/injection/injection.dart';
+import 'package:app/network/services/camera/camera_service_interface.dart';
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
 
@@ -26,6 +28,7 @@ class _LivestreamViewState extends State<LivestreamView> {
     super.initState();
     livestreamManager = LivestreamManager(
       streamUrl: widget.framesUrl ?? "",
+      cameraService: getIt<CameraServiceInterface>(),
     )..start();
   }
 

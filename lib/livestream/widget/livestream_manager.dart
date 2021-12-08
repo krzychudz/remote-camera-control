@@ -1,13 +1,15 @@
 import 'dart:async';
 import 'dart:typed_data';
-
-import 'package:http/http.dart' as http;
+import 'package:app/network/services/camera/camera_service_interface.dart';
 
 class LivestreamManager {
   LivestreamManager({
     required this.streamUrl,
     this.intervalMiliseconds = 30,
+    required this.cameraService,
   });
+
+  final CameraServiceInterface cameraService;
 
   final String streamUrl;
   final int intervalMiliseconds;
@@ -36,10 +38,8 @@ class LivestreamManager {
 
   void _getNewFrame() async {
     try {
-      var response = await http.get(
-        Uri.parse(streamUrl),
-      );
-      _streamController?.add(response.bodyBytes);
+      var frameResponse = await cameraService.getCameraFrame(streamUrl);
+      _streamController?.add(frameResponse);
     } catch (e) {
       print('------Livestream exeption: ${e.toString()} -------');
     }

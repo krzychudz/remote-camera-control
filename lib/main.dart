@@ -1,17 +1,17 @@
+import 'package:app/injection/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../auth/bloc/authentication_bloc.dart';
 import '../../auth/bloc/authentication_state.dart';
-import '../../home/home_page.dart';
-import '../../login/login_page.dart';
 import '../../repositories/authentication_repository.dart';
 import '../../repositories/user_repository.dart';
-import '../../splash/splash_screen.dart';
 
 import '../../navigation/router_generator.dart' as router;
 
 void main() {
+  configurationInjection(Environment.dev);
   runApp(MyApp(
     authenticationRepository: AuthenticationRepository(),
     userRepository: UserRepository(),
