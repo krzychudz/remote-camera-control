@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 import '../../api_client.dart';
 
 @LazySingleton(as: CameraServiceInterface)
-class CameraService extends CameraServiceInterface {
+class CameraService implements CameraServiceInterface {
   CameraService(this.apiClient);
 
   final ApiClient apiClient;
