@@ -1,3 +1,4 @@
+import 'package:app/common/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -8,24 +9,9 @@ import '../../register/bloc/register_state.dart';
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
-  void _showSnackbarMessage(
-      {required BuildContext context, required String message, bool? isError}) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          backgroundColor: isError == true
-              ? Theme.of(context).errorColor
-              : Theme.of(context).snackBarTheme.backgroundColor,
-          content: Text(message),
-        ),
-      );
-  }
-
   void _onSubmissionFailure(RegisterState state, BuildContext context) {
     var arePasswordEqual = state.password.value == state.rePassword.value;
-    _showSnackbarMessage(
-      context: context,
+    context.showSnackbarMessage(
       message: arePasswordEqual
           ? "Registration Failure"
           : "Passwords must be the same",
@@ -34,8 +20,7 @@ class RegisterScreen extends StatelessWidget {
   }
 
   void _onSubmissionSuccess(BuildContext context) {
-    _showSnackbarMessage(
-      context: context,
+    context.showSnackbarMessage(
       message: "Your account has been created",
     );
     Navigator.of(context).pop();

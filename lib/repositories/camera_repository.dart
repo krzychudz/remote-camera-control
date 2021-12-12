@@ -1,8 +1,12 @@
+import '../../network/services/camera/camera_service_interface.dart';
 import '../repositories/camera_repository_interface.dart';
-
 import '../../common/model/camera/camera.dart';
 
 class CameraRepository implements CameraRepositoryInterface {
+  CameraRepository(this.cameraService);
+
+  final CameraServiceInterface cameraService;
+
   @override
   Future<List<Camera>> getCameras() {
     var mockedCameras = [
