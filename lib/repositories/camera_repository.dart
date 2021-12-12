@@ -1,8 +1,12 @@
+import '../../network/services/camera/camera_service_interface.dart';
 import '../repositories/camera_repository_interface.dart';
-
 import '../../common/model/camera/camera.dart';
 
 class CameraRepository implements CameraRepositoryInterface {
+  CameraRepository(this.cameraService);
+
+  final CameraServiceInterface cameraService;
+
   @override
   Future<List<Camera>> getCameras() {
     var mockedCameras = [
@@ -17,5 +21,14 @@ class CameraRepository implements CameraRepositoryInterface {
     ];
 
     return Future.delayed(const Duration(seconds: 3), () => mockedCameras);
+  }
+
+  @override
+  Future<bool> installCamera({
+    required String cameraId,
+    required String cameraRoom,
+    required String cameraName,
+  }) {
+    return Future.delayed(const Duration(seconds: 3), () => true);
   }
 }

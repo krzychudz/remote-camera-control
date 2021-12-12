@@ -31,6 +31,10 @@ class _HomeScreenState extends State<HomeScreen> {
     const SettingsScreen(),
   ];
 
+  void _onAddButtonClicked(BuildContext context) {
+    Navigator.of(context).pushNamed("/camera_installation");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: const Icon(
                 Icons.add,
               ),
-              onPressed: () {},
+              onPressed: () => _onAddButtonClicked(context),
             ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _bottomBarSelectedIndex,

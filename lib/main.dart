@@ -1,4 +1,6 @@
 import 'package:app/injection/injection.dart';
+import 'package:app/network/services/camera/camera_service_interface.dart';
+import 'package:app/repositories/camera_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -7,6 +9,7 @@ import '../../auth/bloc/authentication_bloc.dart';
 import '../../auth/bloc/authentication_state.dart';
 import '../../repositories/authentication_repository.dart';
 import '../../repositories/user_repository.dart';
+import '../../repositories/camera_repository_interface.dart';
 
 import '../../navigation/router_generator.dart' as router;
 
@@ -15,26 +18,31 @@ void main() {
   runApp(MyApp(
     authenticationRepository: AuthenticationRepository(),
     userRepository: UserRepository(),
+    cameraRepository: CameraRepository(
+      getIt<CameraServiceInterface>(),
+    ),
   ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({
-    Key? key,
-    required this.authenticationRepository,
-    required this.userRepository,
-  }) : super(key: key);
+  const MyApp(
+      {Key? key,
+      required this.authenticationRepository,
+      required this.userRepository,
+      required this.cameraRepository})
+      : super(key: key);
 
   final AuthenticationRepository authenticationRepository;
   final UserRepository userRepository;
+  final CameraRepository cameraRepository;
 
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider<AuthenticationRepository>(
-            create: (context) => authenticationRepository),
-        RepositoryProvider<UserRepository>(create: (context) => userRepository)
+        RepositoryProvider.value(value: authenticationRepository),
+        RepositoryProvider.value(value: userRepository),
+        RepositoryProvider.value(value: cameraRepository),
       ],
       child: BlocProvider(
         create: (_) => AuthenticationBloc(
