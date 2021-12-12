@@ -1,3 +1,4 @@
+import 'package:app/camera_installation/camera_installation_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/model/camera/camera.dart';
@@ -33,6 +34,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       }
 
       destination = LivestreamPage(cameraData: cameraArgs);
+      break;
+    case "/camera_installation":
+      destination = const CameraInstallationPage();
       break;
     default:
       destination = const LoginScreen();
