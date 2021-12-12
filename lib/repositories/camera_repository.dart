@@ -18,4 +18,13 @@ class CameraRepository implements CameraRepositoryInterface {
 
     return Future.delayed(const Duration(seconds: 3), () => mockedCameras);
   }
+
+  @override
+  Future<bool> installCamera({
+    required String cameraId,
+    required String cameraRoom,
+    required String cameraName,
+  }) {
+    return Future.delayed(const Duration(seconds: 3), () => true);
+  }
 }

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 
-import '..//bloc/validators/camera_id.dart';
+import '../bloc/validators/camera_id.dart';
 import '../bloc/validators/camera_name.dart';
 import '../bloc/validators/camera_room.dart';
 

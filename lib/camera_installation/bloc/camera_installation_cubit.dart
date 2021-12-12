@@ -57,10 +57,11 @@ class CameraInstallationCubit extends Cubit<CameraInstallationState> {
     if (state.status.isValidated) {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       try {
-        // await _userRepository.registerUser(
-        //   username: state.username.value,
-        //   password: state.password.value,
-        // );
+        await _cameraRepository.installCamera(
+          cameraId: state.cameraId.value,
+          cameraName: state.cameraName.value,
+          cameraRoom: state.cameraRoom.value,
+        );
         emit(state.copyWith(status: FormzStatus.submissionSuccess));
       } catch (_) {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
