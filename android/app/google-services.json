@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "732342515820",
+    "project_id": "smartcam-flutter",
+    "storage_bucket": "smartcam-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:732342515820:android:ddff00569bde1642ed0049",
+        "android_client_info": {
+          "package_name": "com.smartsolution.smartcam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "732342515820-vg0hckms8c0c2rue2bai06peq62ji95g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkzrvzaRIE5cwjUAKUT9UaIQcC4Hsz7vw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "732342515820-vg0hckms8c0c2rue2bai06peq62ji95g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

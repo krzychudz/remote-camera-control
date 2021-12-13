@@ -1,15 +1,17 @@
 import 'package:app/injection/injection.dart';
 import 'package:app/network/services/camera/camera_service_interface.dart';
 import 'package:app/repositories/camera_repository.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../../auth/bloc/authentication_bloc.dart';
 import '../../auth/bloc/authentication_state.dart';
 import '../../repositories/authentication_repository.dart';
 import '../../repositories/user_repository.dart';
-import '../../repositories/camera_repository_interface.dart';
 
 import '../../navigation/router_generator.dart' as router;
 
@@ -68,6 +70,45 @@ class _MainAppState extends State<MainApp> {
   final _navKey = GlobalKey<NavigatorState>();
 
   NavigatorState? get _navigator => _navKey.currentState;
+
+  @override
+  void initState() {
+    super.initState();
+    _initFirebaeNotification();
+  }
+
+  void _initFirebaeNotification() async {
+    final channel = const AndroidNotificationChannel(
+        "high_importance_chanell", "name_chanel",
+        importance: Importance.high);
+
+    final notificationPlugin = FlutterLocalNotificationsPlugin();
+
+    notificationPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
+
+    print("Setup Notification");
+    await Firebase.initializeApp();
+    final fbm = FirebaseMessaging.instance;
+
+    final token = await fbm.getToken();
+    print(token);
+    FirebaseMessaging.onMessage.listen((event) async {
+      await notificationPlugin.show(
+        100,
+        "title",
+        "test_body",
+        NotificationDetails(
+            android: AndroidNotificationDetails(
+          channel.id,
+          channel.name,
+        )),
+      );
+      print("New push notification: ${event}");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
