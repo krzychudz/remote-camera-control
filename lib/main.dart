@@ -85,10 +85,6 @@ class _MainAppState extends State<MainApp> {
 
   void _initializePushNotification() async {
     await _initFirebaeNotification();
-
-    FirebaseMessaging.onMessageOpenedApp.listen((event) {
-      _navigator?.pushNamed("/livestream", arguments: event.data);
-    });
   }
 
   @override
