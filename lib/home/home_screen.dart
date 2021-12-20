@@ -1,5 +1,7 @@
 import 'package:app/dashboard/dashboard_page.dart';
 import 'package:app/settings/settings_screen.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -33,6 +35,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _onAddButtonClicked(BuildContext context) {
     Navigator.of(context).pushNamed("/camera_installation");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (!kIsWeb) {
+      FirebaseMessaging.instance.getInitialMessage().then((value) {
+        if (value != null) {
+          Navigator.of(context).pushNamed("/livestream", arguments: value.data);
+        }
+      });
+
+      FirebaseMessaging.onMessageOpenedApp.listen((event) {
+        Navigator.of(context).pushNamed("/livestream", arguments: event.data);
+      });
+    }
   }
 
   @override

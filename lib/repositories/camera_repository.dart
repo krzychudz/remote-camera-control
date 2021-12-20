@@ -16,7 +16,7 @@ class CameraRepository implements CameraRepositoryInterface {
           cameraLocation: "Room1"),
       Camera(
           cameraName: "Camera2",
-          cameraStreamUrl: "http://192.168.0.21:3000/frames/frame.jpg",
+          cameraStreamUrl: "https://picsum.photos/id/1/200/300",
           cameraLocation: "Room2")
     ];
 

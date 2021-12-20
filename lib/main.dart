@@ -1,6 +1,8 @@
 import 'package:app/injection/injection.dart';
 import 'package:app/network/services/camera/camera_service_interface.dart';
+import 'package:app/notifications/notification_service.dart';
 import 'package:app/repositories/camera_repository.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -9,11 +11,17 @@ import '../../auth/bloc/authentication_bloc.dart';
 import '../../auth/bloc/authentication_state.dart';
 import '../../repositories/authentication_repository.dart';
 import '../../repositories/user_repository.dart';
-import '../../repositories/camera_repository_interface.dart';
 
 import '../../navigation/router_generator.dart' as router;
 
-void main() {
+Future<void> _initFirebaeNotification() async {
+  final notificationService = NotificationsService.instance();
+  await notificationService.initialize();
+  final token = await notificationService.notificationToken;
+  print(token);
+}
+
+void main() async {
   configurationInjection(Environment.dev);
   runApp(MyApp(
     authenticationRepository: AuthenticationRepository(),
@@ -70,6 +78,18 @@ class _MainAppState extends State<MainApp> {
   NavigatorState? get _navigator => _navKey.currentState;
 
   @override
+  void initState() {
+    super.initState();
+    if (!kIsWeb) {
+      _initializePushNotification();
+    }
+  }
+
+  void _initializePushNotification() async {
+    await _initFirebaeNotification();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'SmartCam',
@@ -82,14 +102,12 @@ class _MainAppState extends State<MainApp> {
           listener: (context, state) {
             switch (state.status) {
               case AuthenticationStatus.authenticated:
-                print("AUTH!");
                 _navigator?.pushNamedAndRemoveUntil(
                   "/home",
                   (route) => false,
                 );
                 break;
               case AuthenticationStatus.unauthenticated:
-                print("UNAUTH!");
                 _navigator?.pushNamedAndRemoveUntil(
                   "/login",
                   (route) => false,

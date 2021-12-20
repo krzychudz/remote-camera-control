@@ -29,9 +29,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       break;
     case "/livestream":
       Camera? cameraArgs;
-      if (args is Map<String, String>) {
-        cameraArgs = Camera.fromJson(args);
-      }
+      final data = Map<String, String>.from(args as Map<dynamic, dynamic>);
+      cameraArgs = Camera.fromJson(data);
 
       destination = LivestreamPage(cameraData: cameraArgs);
       break;
