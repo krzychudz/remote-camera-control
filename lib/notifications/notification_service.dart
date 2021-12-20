@@ -26,6 +26,8 @@ class NotificationsService {
     await Firebase.initializeApp();
 
     _fbm = FirebaseMessaging.instance;
+    _fbm.requestPermission();
+
     _notificationPlugin = FlutterLocalNotificationsPlugin();
 
     await _initializeLocalNotificationPlugin();
@@ -41,6 +43,7 @@ class NotificationsService {
     _notificationPlugin.initialize(
       InitializationSettings(
         android: _getAndroidInitializationSettings(),
+        iOS: _getIOSInitializationSettings(),
       ),
     );
   }
@@ -56,6 +59,10 @@ class NotificationsService {
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(_androidNotificationChannel);
+  }
+
+  IOSInitializationSettings _getIOSInitializationSettings() {
+    return const IOSInitializationSettings();
   }
 
   AndroidInitializationSettings _getAndroidInitializationSettings() {
