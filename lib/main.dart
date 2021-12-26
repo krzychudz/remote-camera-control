@@ -3,6 +3,7 @@ import 'package:app/network/services/camera/camera_service_interface.dart';
 import 'package:app/notifications/notification_service.dart';
 import 'package:app/repositories/camera_repository.dart';
 import 'package:app/theme/theme.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,12 +24,19 @@ Future<void> _initFirebaeNotification() async {
 }
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   configurationInjection(Environment.dev);
-  runApp(MyApp(
-    authenticationRepository: AuthenticationRepository(),
-    userRepository: UserRepository(),
-    cameraRepository: CameraRepository(
-      getIt<CameraServiceInterface>(),
+  runApp(EasyLocalization(
+    path: 'assets/translations',
+    supportedLocales: [Locale('en', 'US')],
+    fallbackLocale: Locale('en', 'US'),
+    child: MyApp(
+      authenticationRepository: AuthenticationRepository(),
+      userRepository: UserRepository(),
+      cameraRepository: CameraRepository(
+        getIt<CameraServiceInterface>(),
+      ),
     ),
   ));
 }
