@@ -2,6 +2,7 @@ import 'package:app/injection/injection.dart';
 import 'package:app/network/services/camera/camera_service_interface.dart';
 import 'package:app/notifications/notification_service.dart';
 import 'package:app/repositories/camera_repository.dart';
+import 'package:app/theme/theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -94,9 +95,7 @@ class _MainAppState extends State<MainApp> {
     return MaterialApp(
       title: 'SmartCam',
       navigatorKey: _navKey,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: getThemeData(context),
       builder: (context, child) {
         return BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {

@@ -1,3 +1,4 @@
+import 'package:app/common/appbar/appbar.dart';
 import 'package:app/dashboard/dashboard_page.dart';
 import 'package:app/settings/settings_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -62,6 +63,9 @@ class _HomeScreenState extends State<HomeScreen> {
           _getTitleForTab(_bottomBarSelectedIndex),
         ),
       ),
+      // appBar: MainAppBar(
+      //   title: _getTitleForTab(_bottomBarSelectedIndex),
+      // ),
       floatingActionButton: _bottomBarSelectedIndex != 0
           ? null
           : FloatingActionButton(
