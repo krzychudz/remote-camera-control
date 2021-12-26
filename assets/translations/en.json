@@ -6,5 +6,13 @@
     "password_empty_error": "Password cannot be empty",
     "login": "Login",
     "no_account": "Don't have an account?\n",
-    "register_now": "Register now"
+    "register_now": "Register now",
+    "registration_faliure": "Registration Failure",
+    "password_not_the_same": "Passwords must be the same",
+    "account_created": "Your account has been created",
+    "registration_title": "Registration",
+    "retype_password": "Retype password",
+    "field_empty_error": "This field cannot be empty",
+    "sign_up": "Sign Up",
+    "registration_explanation": "Fill the from to create an account!"
 }
