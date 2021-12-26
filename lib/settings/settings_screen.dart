@@ -1,5 +1,6 @@
 import 'package:app/auth/bloc/authentication_bloc.dart';
 import 'package:app/auth/user.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,7 +26,7 @@ class SettingsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Header(headerTitle: "User information"),
+            Header(headerTitle: tr('user_information')),
             const Expanded(
               child: UserInfoSection(),
             ),
@@ -34,7 +35,7 @@ class SettingsScreen extends StatelessWidget {
                 horizontal: 32,
               ),
               child: FullWidthButton(
-                label: "Logout",
+                label: tr('logout'),
                 onPressed: () => _onLogoutClicked(context),
               ),
             ),
@@ -63,21 +64,21 @@ class UserInfoSection extends StatelessWidget {
       child: Column(
         children: [
           UserInfoRow(
-            label: "First Name",
+            label: tr('first_name'),
             value: userInfo.firstName,
           ),
           const SizedBox(
             height: 8,
           ),
           UserInfoRow(
-            label: "Last Name",
+            label: tr('last_name'),
             value: userInfo.lastName,
           ),
           const SizedBox(
             height: 8,
           ),
           UserInfoRow(
-            label: "Email",
+            label: tr('email'),
             value: userInfo.email,
           ),
         ],
