@@ -14,5 +14,8 @@
     "retype_password": "Retype password",
     "field_empty_error": "This field cannot be empty",
     "sign_up": "Sign Up",
-    "registration_explanation": "Fill the from to create an account!"
+    "registration_explanation": "Fill the from to create an account!",
+    "general_error": "Something went wrong :(",
+    "cameras_header": "Cameras",
+    "unknown": "Unknown"
 }
