@@ -24,5 +24,16 @@
     "logout": "Logout",
     "first_name": "First Name",
     "last_name": "Last Name",
-    "email": "Email"
+    "email": "Email",
+    "add_camera_label": "Add camera",
+    "camera_added_succesfully": "Camera was added succesfully",
+    "add_camera": "Add camera",
+    "camera_id": "Camera ID",
+    "camera_id_empty_error": "Camera ID cannot be empty",
+    "room": "Room",
+    "room_empty_error": "Camera Room cannot be empty",
+    "camera_name": "Camera Name",
+    "camera_name_empty_error": "Camera Name cannot be empty",
+    "camera_add_explanation": "Provide necessary information to install your camera. You will find camera ID on the device"
+
 }
