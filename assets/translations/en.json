@@ -1,3 +1,10 @@
 {
-        
+    "authentication_failure": "Authentication Failure",
+    "username": "Username",
+    "user_name_empty_error": "Username cannot be empty",
+    "password": "Password",
+    "password_empty_error": "Password cannot be empty",
+    "login": "Login",
+    "no_account": "Don't have an account?\n",
+    "register_now": "Register now"
 }

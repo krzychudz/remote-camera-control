@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,8 +20,8 @@ class LoginScreen extends StatelessWidget {
           {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
-              ..showSnackBar(const SnackBar(
-                content: Text("Authentication Failure"),
+              ..showSnackBar(SnackBar(
+                content: const Text('authentication_failure').tr(),
               ))
           }
       },
@@ -71,9 +73,9 @@ class LoginForm extends StatelessWidget {
               ),
           decoration: InputDecoration(
               border: const OutlineInputBorder(),
-              labelText: 'Username',
+              labelText: tr('username'),
               errorText:
-                  state.username.invalid ? 'Username cannot be empty' : null),
+                  state.username.invalid ? tr('user_name_empty_error') : null),
         );
       },
     );
@@ -92,9 +94,9 @@ class LoginForm extends StatelessWidget {
               ),
           decoration: InputDecoration(
               border: const OutlineInputBorder(),
-              labelText: 'Password',
+              labelText: tr('password'),
               errorText:
-                  state.password.invalid ? 'Password cannot be empty' : null),
+                  state.password.invalid ? tr('password_empty_error') : null),
         );
       },
     );
@@ -117,8 +119,8 @@ class LoginForm extends StatelessWidget {
               child: ElevatedButton(
                 key: const Key("loginForm_submit_elevatedButton"),
                 child: const Text(
-                  "Login",
-                ),
+                  "login",
+                ).tr(),
                 onPressed: state.status.isValidated &&
                         !state.status.isSubmissionInProgress
                     ? () => _onSubmitPressed(context)
@@ -135,14 +137,14 @@ class LoginForm extends StatelessWidget {
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
-        text: "Nie masz konta?\n",
+        text: tr('no_account'),
         style: const TextStyle(
           color: Colors.black,
           fontSize: 16,
         ),
         children: [
           TextSpan(
-            text: 'Zarejestruj się',
+            text: tr('register_now'),
             recognizer: TapGestureRecognizer()
               ..onTap = () => onRegisterClicked(context),
             style: const TextStyle(

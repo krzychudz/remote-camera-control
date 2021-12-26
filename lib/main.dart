@@ -29,8 +29,8 @@ void main() async {
   configurationInjection(Environment.dev);
   runApp(EasyLocalization(
     path: 'assets/translations',
-    supportedLocales: [Locale('en', 'US')],
-    fallbackLocale: Locale('en', 'US'),
+    supportedLocales: [Locale('en')],
+    fallbackLocale: Locale('en'),
     child: MyApp(
       authenticationRepository: AuthenticationRepository(),
       userRepository: UserRepository(),
@@ -104,6 +104,9 @@ class _MainAppState extends State<MainApp> {
       title: 'SmartCam',
       navigatorKey: _navKey,
       theme: getThemeData(context),
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      localizationsDelegates: context.localizationDelegates,
       builder: (context, child) {
         return BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {
