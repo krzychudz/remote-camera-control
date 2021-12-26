@@ -1,6 +1,7 @@
 import 'package:app/common/appbar/appbar.dart';
 import 'package:app/dashboard/dashboard_page.dart';
 import 'package:app/settings/settings_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +24,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String _getTitleForTab(int index) {
     if (index == 0) {
-      return "Dashboard";
+      return tr('dashboard');
     } else {
-      return "Account";
+      return tr('account');
     }
   }
 
@@ -63,9 +64,6 @@ class _HomeScreenState extends State<HomeScreen> {
           _getTitleForTab(_bottomBarSelectedIndex),
         ),
       ),
-      // appBar: MainAppBar(
-      //   title: _getTitleForTab(_bottomBarSelectedIndex),
-      // ),
       floatingActionButton: _bottomBarSelectedIndex != 0
           ? null
           : FloatingActionButton(
@@ -78,14 +76,14 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: _bottomBarSelectedIndex,
         showUnselectedLabels: false,
         onTap: _onItemTapped,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
+            icon: const Icon(Icons.home),
+            label: tr('dashboard'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Account",
+            icon: const Icon(Icons.person),
+            label: tr('account'),
           ),
         ],
       ),

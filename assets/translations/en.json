@@ -17,5 +17,7 @@
     "registration_explanation": "Fill the from to create an account!",
     "general_error": "Something went wrong :(",
     "cameras_header": "Cameras",
-    "unknown": "Unknown"
+    "unknown": "Unknown",
+    "dashboard": "Dashboard",
+    "account": "Account"
 }
