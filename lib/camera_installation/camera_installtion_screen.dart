@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -13,19 +15,19 @@ class CameraInstallationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add camera"),
+        title: const Text('add_camera_label').tr(),
       ),
       body: BlocListener<CameraInstallationCubit, CameraInstallationState>(
         listener: (context, state) {
           if (state.status.isSubmissionSuccess) {
             context.showSnackbarMessage(
-                message: "Camera was added succesfully");
+                message: tr('camera_added_succesfully'));
             Navigator.of(context).pop();
           }
 
           if (state.status.isSubmissionFailure) {
             context.showSnackbarMessage(
-                message: "Something went wrong", isError: true);
+                message: tr('general_error'), isError: true);
           }
         },
         child: const CameraInstallationForm(),
@@ -103,8 +105,8 @@ class SubmitButton extends StatelessWidget {
                 child: state.status.isSubmissionInProgress
                     ? const CircularProgressIndicator()
                     : const Text(
-                        "Add camera",
-                      ),
+                        'add_camera',
+                      ).tr(),
               ),
             ),
           );
@@ -132,9 +134,9 @@ class CameraIdInput extends StatelessWidget {
               key: const Key('newCameraForm_cameraIdInput_textField'),
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
-                labelText: 'Camera ID',
+                labelText: tr('camera_id'),
                 errorText:
-                    state.cameraId.invalid ? "Camera ID cannot be empty" : null,
+                    state.cameraId.invalid ? tr('camera_id_empty_error') : null,
               ),
             ),
           );
@@ -163,10 +165,9 @@ class CameraRoomInput extends StatelessWidget {
               key: const Key('newCameraForm_cameraRoomInput_textField'),
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
-                labelText: 'Room',
-                errorText: state.cameraRoom.invalid
-                    ? "Camera Room cannot be empty"
-                    : null,
+                labelText: tr('room'),
+                errorText:
+                    state.cameraRoom.invalid ? tr('room_empty_error') : null,
               ),
             ),
           );
@@ -195,9 +196,9 @@ class CameraNameInput extends StatelessWidget {
               key: const Key('newCameraForm_cameraNameInput_textField'),
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
-                labelText: 'Camera Name',
+                labelText: tr('camera_name'),
                 errorText: state.cameraName.invalid
-                    ? "Camera Name cannot be empty"
+                    ? tr('camera_name_empty_error')
                     : null,
               ),
             ),
@@ -214,11 +215,11 @@ class InstallationInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Text(
-      "Provide necessary information to install your camera. You will find camera ID on the device",
+      'camera_add_explanation',
       textAlign: TextAlign.center,
       style: TextStyle(
         fontSize: 16,
       ),
-    );
+    ).tr();
   }
 }

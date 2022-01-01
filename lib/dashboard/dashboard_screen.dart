@@ -1,4 +1,5 @@
-import 'package:app/livestream/livestream_page.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,18 +22,18 @@ class DashboardScreen extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           case CameraFetchStatus.failure:
-            return const Center(
-              child: Text(
-                "Something went wrong :(",
-              ),
+            return Center(
+              child: const Text(
+                "general_error",
+              ).tr(),
             );
           case CameraFetchStatus.success:
             return CamerasList(
               camerasData: state.data,
             );
           default:
-            return const Center(
-              child: Text("Something went wrong"),
+            return Center(
+              child: const Text("general_error").tr(),
             );
         }
       },
@@ -51,8 +52,8 @@ class CamerasList extends StatelessWidget {
       width: double.infinity,
       child: ListView(
         children: [
-          const Header(
-            headerTitle: "Cameras",
+          Header(
+            headerTitle: tr('cameras_header'),
           ),
           ...camerasData.map(
             (camera) => CameraView(
@@ -102,8 +103,8 @@ class CameraView extends StatelessWidget {
               ),
             ),
             CameraHeader(
-              cameraName: cameraData.cameraName ?? "Unknown",
-              cameraLocation: cameraData.cameraLocation ?? "Unknown",
+              cameraName: cameraData.cameraName ?? tr('unknown'),
+              cameraLocation: cameraData.cameraLocation ?? tr('unknown'),
             )
           ],
         ),

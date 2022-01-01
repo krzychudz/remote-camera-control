@@ -1,4 +1,5 @@
 import 'package:app/common/snackbar/snackbar.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -13,15 +14,15 @@ class RegisterScreen extends StatelessWidget {
     var arePasswordEqual = state.password.value == state.rePassword.value;
     context.showSnackbarMessage(
       message: arePasswordEqual
-          ? "Registration Failure"
-          : "Passwords must be the same",
+          ? tr('registration_faliure')
+          : tr('password_not_the_same'),
       isError: !arePasswordEqual,
     );
   }
 
   void _onSubmissionSuccess(BuildContext context) {
     context.showSnackbarMessage(
-      message: "Your account has been created",
+      message: tr('account_created'),
     );
     Navigator.of(context).pop();
   }
@@ -30,7 +31,7 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Registration"),
+        title: const Text("registration_title").tr(),
       ),
       body: BlocListener<RegisterCubit, RegisterState>(
         listener: (context, state) {
@@ -60,9 +61,9 @@ class RegistrationForm extends StatelessWidget {
           key: const Key('registerForm_usernameInput_textField'),
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
-            labelText: 'Username',
+            labelText: tr('username'),
             errorText:
-                state.username.invalid ? 'Username cannot be empty' : null,
+                state.username.invalid ? tr('user_name_empty_error') : null,
           ),
         );
       },
@@ -81,9 +82,9 @@ class RegistrationForm extends StatelessWidget {
           key: const Key('registerForm_passwordInput_textField'),
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
-            labelText: 'Password',
+            labelText: tr('password'),
             errorText:
-                state.password.invalid ? 'Password cannot be empty' : null,
+                state.password.invalid ? tr('password_empty_error') : null,
           ),
         );
       },
@@ -103,9 +104,9 @@ class RegistrationForm extends StatelessWidget {
           key: const Key('registerForm_passwordRetypeInput_textField'),
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
-            labelText: 'Retype password',
+            labelText: tr('retype_password'),
             errorText:
-                state.rePassword.invalid ? 'This field cannot be empty' : null,
+                state.rePassword.invalid ? tr('field_empty_error') : null,
           ),
         );
       },
@@ -138,8 +139,8 @@ class RegistrationForm extends StatelessWidget {
                       ? () => _onSubmitPressed(context)
                       : null,
                   child: const Text(
-                    "Sign up",
-                  ),
+                    "sign_up",
+                  ).tr(),
                 ),
               ),
             ],
@@ -160,11 +161,11 @@ class RegistrationForm extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text(
-              "Fill the from to create an account!",
+              "registration_explanation",
               style: TextStyle(
                 fontSize: 18.0,
               ),
-            ),
+            ).tr(),
             const SizedBox(
               height: 32,
             ),
