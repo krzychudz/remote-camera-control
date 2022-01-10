@@ -1,5 +1,6 @@
 import 'package:app/injection/injection.dart';
 import 'package:app/network/services/camera/camera_service_interface.dart';
+import 'package:app/network/services/user/user_service_interface.dart';
 import 'package:app/notifications/notification_service.dart';
 import 'package:app/repositories/camera_repository.dart';
 import 'package:app/theme/theme.dart';
@@ -33,7 +34,9 @@ void main() async {
     fallbackLocale: Locale('en'),
     child: MyApp(
       authenticationRepository: AuthenticationRepository(),
-      userRepository: UserRepository(),
+      userRepository: UserRepository(
+        getIt<UserServiceInterface>(),
+      ),
       cameraRepository: CameraRepository(
         getIt<CameraServiceInterface>(),
       ),
