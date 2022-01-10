@@ -1,5 +1,6 @@
 import 'package:app/network/api_client.dart';
 import 'package:app/network/services/user/user_service_interface.dart';
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: UserServiceInterface)
@@ -9,7 +10,7 @@ class UserService implements UserServiceInterface {
   final ApiClient apiClient;
 
   @override
-  void registerUser(body) {
-    // TODO: implement registerUser
+  Future<Response<ResponseBody>> registerUser(Map<String, dynamic> body) {
+    return ApiClient().client.post<ResponseBody>("api/register", data: body);
   }
 }

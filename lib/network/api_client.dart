@@ -9,7 +9,7 @@ class ApiClient {
   static Dio createDio() {
     var dio = Dio(
       BaseOptions(
-        baseUrl: "tmp",
+        baseUrl: "http://localhost:8000/",
         receiveTimeout: 15000,
         connectTimeout: 15000,
         sendTimeout: 15000,

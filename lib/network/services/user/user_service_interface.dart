@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 abstract class UserServiceInterface {
-  void registerUser(body);
+  Future<Response<ResponseBody>> registerUser(Map<String, dynamic> body);
 }

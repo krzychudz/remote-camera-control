@@ -77,7 +77,7 @@ class RegisterCubit extends Cubit<RegisterState> {
           password: state.password.value,
         );
         emit(state.copyWith(status: FormzStatus.submissionSuccess));
-      } catch (_) {
+      } catch (ex) {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     }
