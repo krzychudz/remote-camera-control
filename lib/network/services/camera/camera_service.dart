@@ -20,4 +20,9 @@ class CameraService implements CameraServiceInterface {
     );
     return Uint8List.fromList(response.data!);
   }
+
+  @override
+  Future<Response<ResponseBody>> addCamera(Map<String, String> body) async {
+    return await apiClient.client.post<ResponseBody>("api/cameras", data: body);
+  }
 }

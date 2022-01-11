@@ -1,24 +1,26 @@
 class Camera {
   Camera({
     required this.cameraName,
-    required this.cameraStreamUrl,
+    required this.cameraId,
     required this.cameraLocation,
   });
 
   Camera.fromJson(Map<String, String> cameraJson)
       : cameraName = cameraJson["cameraName"],
-        cameraStreamUrl = cameraJson["cameraStreamUrl"],
+        cameraId = cameraJson["cameraId"],
         cameraLocation = cameraJson["cameraLocation"];
 
   Map<String, String> toJson() {
     return {
       "cameraName": cameraName ?? "",
-      "cameraStreamUrl": cameraStreamUrl ?? "",
+      "cameraStreamUrl": cameraId ?? "",
       "cameraLocation": cameraLocation ?? "",
     };
   }
 
   final String? cameraName;
-  final String? cameraStreamUrl;
+  final String? cameraId;
   final String? cameraLocation;
+
+  String get cameraStreamUrl => "http://localhost:8000/api/cameras/$cameraId";
 }

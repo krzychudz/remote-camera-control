@@ -92,7 +92,7 @@ class CameraView extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: Image.network(
-                cameraData.cameraStreamUrl ?? "",
+                cameraData.cameraStreamUrl,
                 fit: BoxFit.fill,
                 errorBuilder: (context, error, stackTrace) =>
                     const CameraLoadingPlaceholder(),
