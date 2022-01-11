@@ -1,8 +1,17 @@
 import 'dart:async';
 
+import 'package:app/network/services/user/user_service_interface.dart';
+import 'package:uuid/uuid.dart';
+
 enum AuthenticationStatus { unknown, authenticated, unauthenticated }
 
 class AuthenticationRepository {
+  AuthenticationRepository({
+    required this.userServiceInterface,
+  });
+
+  final UserServiceInterface userServiceInterface;
+
   final _authController = StreamController<AuthenticationStatus>();
 
   Stream<AuthenticationStatus> get status async* {
@@ -13,14 +22,16 @@ class AuthenticationRepository {
   }
 
   Future<void> logIn({
-    required String username,
+    required String email,
     required String password,
   }) async {
-    //TODO: Auth user on backend
-    await Future.delayed(
-      const Duration(seconds: 3),
-      () => _authController.add(AuthenticationStatus.authenticated),
-    );
+    var tokenResponse = await userServiceInterface.login({
+      "email": email,
+      "password": password,
+      "device_name": const Uuid().v4()
+    });
+
+    _authController.add(AuthenticationStatus.authenticated);
   }
 
   void logOut() {

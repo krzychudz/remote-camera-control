@@ -33,7 +33,9 @@ void main() async {
     supportedLocales: [Locale('en')],
     fallbackLocale: Locale('en'),
     child: MyApp(
-      authenticationRepository: AuthenticationRepository(),
+      authenticationRepository: AuthenticationRepository(
+        userServiceInterface: getIt<UserServiceInterface>(),
+      ),
       userRepository: UserRepository(
         getIt<UserServiceInterface>(),
       ),

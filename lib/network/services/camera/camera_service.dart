@@ -38,6 +38,6 @@ class CameraService implements CameraServiceInterface {
     }
 
     List camerasRaw = json.decode(response.data.toString());
-    return camerasRaw.map((e) => Camera.fromJson({})).toList();
+    return camerasRaw.map((e) => Camera.fromJson(e)).toList();
   }
 }
