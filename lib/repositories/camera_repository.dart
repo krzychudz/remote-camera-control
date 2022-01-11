@@ -16,13 +16,9 @@ class CameraRepository implements CameraRepositoryInterface {
   Stream<Camera> get newCameraStream => _cameraStreamControler.stream;
 
   @override
-  Future<List<Camera>> getCameras() {
-    var mockedCameras = [
-      Camera(cameraName: "Camera1", cameraId: "12345", cameraLocation: "Room1"),
-      Camera(cameraName: "Camera2", cameraId: "12345", cameraLocation: "Room2")
-    ];
-
-    return Future.delayed(const Duration(seconds: 3), () => []);
+  Future<List<Camera>> getCameras() async {
+    var camerasResponse = await cameraService.getCameras();
+    return camerasResponse;
   }
 
   @override

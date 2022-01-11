@@ -6,15 +6,15 @@ class Camera {
   });
 
   Camera.fromJson(Map<String, String> cameraJson)
-      : cameraName = cameraJson["cameraName"],
-        cameraId = cameraJson["cameraId"],
-        cameraLocation = cameraJson["cameraLocation"];
+      : cameraName = cameraJson["title"],
+        cameraId = cameraJson["id"],
+        cameraLocation = cameraJson["description"];
 
   Map<String, String> toJson() {
     return {
-      "cameraName": cameraName ?? "",
-      "cameraStreamUrl": cameraId ?? "",
-      "cameraLocation": cameraLocation ?? "",
+      "title": cameraName ?? "",
+      "id": cameraId ?? "",
+      "description": cameraLocation ?? "",
     };
   }
 
