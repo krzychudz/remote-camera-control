@@ -22,7 +22,7 @@ class CameraRepository implements CameraRepositoryInterface {
       Camera(cameraName: "Camera2", cameraId: "12345", cameraLocation: "Room2")
     ];
 
-    return Future.delayed(const Duration(seconds: 3), () => mockedCameras);
+    return Future.delayed(const Duration(seconds: 3), () => []);
   }
 
   @override

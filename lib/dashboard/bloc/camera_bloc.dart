@@ -13,6 +13,7 @@ class CameraCubit extends Cubit<CameraState> {
         super(const CameraState()) {
     _newCameraSubscription =
         _cameraRepository.newCameraStream.listen((newCamera) {
+      print("new camera ${newCamera.cameraId}");
       _onNewCameraAdded(newCamera);
     });
   }
@@ -21,9 +22,14 @@ class CameraCubit extends Cubit<CameraState> {
   late final StreamSubscription _newCameraSubscription;
 
   void _onNewCameraAdded(Camera newCamera) async {
+    var cameras = [...state.data];
+    var newCameras = [...cameras, newCamera];
+    print(newCameras);
+    print(state.data);
     emit(
       state.copyWith(
-        data: [...state.data, newCamera],
+        status: CameraFetchStatus.success,
+        data: [...newCameras],
       ),
     );
   }

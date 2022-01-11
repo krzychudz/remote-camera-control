@@ -14,7 +14,6 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CameraCubit, CameraState>(
-      buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         switch (state.status) {
           case CameraFetchStatus.inProgress:
@@ -28,6 +27,17 @@ class DashboardScreen extends StatelessWidget {
               ).tr(),
             );
           case CameraFetchStatus.success:
+            if (state.data.isEmpty) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: const Text(
+                    'camera_empty_info',
+                    textAlign: TextAlign.center,
+                  ).tr(),
+                ),
+              );
+            }
             return CamerasList(
               camerasData: state.data,
             );
