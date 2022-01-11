@@ -30,13 +30,11 @@ class AuthenticationRepository {
     required String email,
     required String password,
   }) async {
-    // var tokenResponse = await userServiceInterface.login({
-    //   "email": email,
-    //   "password": password,
-    //   "device_name": const Uuid().v4()
-    // });
-
-    var tokenResponse = "Fake_token";
+    var tokenResponse = await userServiceInterface.login({
+      "email": email,
+      "password": password,
+      "device_name": const Uuid().v4()
+    });
 
     var storage = await Hive.openBox(CacheKeys.tokenBoxName);
     storage.put(CacheKeys.tokenKey, tokenResponse);
