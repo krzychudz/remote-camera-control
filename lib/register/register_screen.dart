@@ -82,7 +82,7 @@ class RegistrationForm extends StatelessWidget {
           key: const Key('registerForm_emailInput_textField'),
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
-            labelText: tr('email_lable'),
+            labelText: tr('email_label'),
             errorText: state.email.invalid ? _getEmailErrorField(state) : null,
           ),
         );
