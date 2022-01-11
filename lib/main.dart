@@ -16,6 +16,7 @@ import '../../repositories/authentication_repository.dart';
 import '../../repositories/user_repository.dart';
 
 import '../../navigation/router_generator.dart' as router;
+import 'cache/hive_init.dart';
 
 Future<void> _initFirebaeNotification() async {
   final notificationService = NotificationsService.instance();
@@ -25,6 +26,8 @@ Future<void> _initFirebaeNotification() async {
 }
 
 void main() async {
+  await initHive();
+
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   configurationInjection(Environment.dev);
