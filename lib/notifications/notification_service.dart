@@ -66,7 +66,7 @@ class NotificationsService {
   }
 
   AndroidInitializationSettings _getAndroidInitializationSettings() {
-    return const AndroidInitializationSettings("launch_background");
+    return const AndroidInitializationSettings("@mipmap/ic_launcher");
   }
 
   void _initForegroundNotificationListener() {
