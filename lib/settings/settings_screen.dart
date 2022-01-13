@@ -70,10 +70,6 @@ class UserInfoSection extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
-          UserInfoRow(
-            label: tr('last_name'),
-            value: userInfo.lastName,
-          ),
           const SizedBox(
             height: 8,
           ),

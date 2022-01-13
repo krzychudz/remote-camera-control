@@ -32,6 +32,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   configurationInjection(Environment.dev);
+
   runApp(EasyLocalization(
     path: 'assets/translations',
     supportedLocales: [Locale('en')],

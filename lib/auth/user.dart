@@ -1,14 +1,13 @@
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
-  const User(this.email, this.firstName, this.lastName);
+  const User(this.email, this.firstName);
 
   final String email;
   final String firstName;
-  final String lastName;
 
   @override
   List<Object> get props => [email];
 
-  static const empty = User("", "", "");
+  static const empty = User("", "");
 }

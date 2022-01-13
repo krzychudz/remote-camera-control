@@ -44,7 +44,7 @@ class ApiClient {
       },
     ));
 
-    dio.interceptors.add(LogInterceptor(responseBody: false));
+    dio.interceptors.add(LogInterceptor(responseBody: true, requestBody: true));
 
     return dio;
   }
