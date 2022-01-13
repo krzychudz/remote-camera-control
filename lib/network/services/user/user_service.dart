@@ -19,16 +19,16 @@ class UserService implements UserServiceInterface {
 
   @override
   Future<String?> login(Map<String, dynamic> body) async {
-    // var response = await apiClient.client.post<String>(
-    //   "api/token",
-    //   data: body,
-    // );
+    var response = await apiClient.client.post<String>(
+      "api/token",
+      data: body,
+    );
 
-    // if (!response.isSuccessful()) {
-    //   throw Exception(response.statusMessage);
-    // }
+    if (!response.isSuccessful()) {
+      throw Exception(response.statusMessage);
+    }
 
-    // return response.data;
-    return '{"bearer": "TOKEN", "user": {"name": "John", "email": "john@gmail.com"}}';
+    return response.data;
+    //return '{"bearer": "TOKEN", "user": {"name": "John", "email": "john@gmail.com"}}'; // TODO Remove mocked data
   }
 }

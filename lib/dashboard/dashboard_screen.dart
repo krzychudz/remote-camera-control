@@ -101,16 +101,20 @@ class CameraView extends StatelessWidget {
           children: [
             SizedBox(
               width: double.infinity,
-              child: Image.network(
-                cameraData.cameraStreamUrl,
-                fit: BoxFit.fill,
-                errorBuilder: (context, error, stackTrace) =>
-                    const CameraLoadingPlaceholder(),
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return const CameraLoadingPlaceholder();
-                },
-              ),
+              child: FutureBuilder<String>(
+                  future: cameraData.cameraStreamUrl,
+                  builder: (context, snapshot) {
+                    return Image.network(
+                      snapshot.requireData,
+                      fit: BoxFit.fill,
+                      errorBuilder: (context, error, stackTrace) =>
+                          const CameraLoadingPlaceholder(),
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return const CameraLoadingPlaceholder();
+                      },
+                    );
+                  }),
             ),
             CameraHeader(
               cameraName: cameraData.cameraName ?? tr('unknown'),
