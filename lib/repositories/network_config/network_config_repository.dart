@@ -26,6 +26,9 @@ class NetworkConfigRepository {
     var storage = await Hive.openBox(cache_keys.baseUrlBoxName);
     var ip = storage.get(cache_keys.baseUrlIp);
     var port = storage.get(cache_keys.baseUrPort);
+
+    print(ip);
+    print(port);
     await storage.close();
 
     return {
