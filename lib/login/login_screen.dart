@@ -166,6 +166,25 @@ class LoginForm extends StatelessWidget {
     );
   }
 
+  GestureDetector _buildConfigurationSection(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed("/network_cofiguration");
+      },
+      child: RichText(
+        textAlign: TextAlign.center,
+        text: const TextSpan(
+          text: "Base station configuration",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 14,
+            decoration: TextDecoration.underline,
+          ),
+        ),
+      ),
+    );
+  }
+
   void _onSubmitPressed(BuildContext context) {
     FocusManager.instance.primaryFocus?.unfocus();
     context.read<LoginBloc>().add(
@@ -190,9 +209,15 @@ class LoginForm extends StatelessWidget {
           height: 8,
         ),
         Expanded(
-          child: Container(
-            alignment: Alignment.bottomCenter,
-            child: _buildRegisterSection(context),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              _buildRegisterSection(context),
+              const SizedBox(
+                height: 8,
+              ),
+              _buildConfigurationSection(context),
+            ],
           ),
         ),
       ],
