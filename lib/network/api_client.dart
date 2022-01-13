@@ -35,6 +35,17 @@ class ApiClient {
       ),
     );
 
+    dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) async {
+        var storage = await Hive.openBox(CacheKeys.baseUrlBoxName);
+        String? baseUrl = storage.get(CacheKeys.baseUrlKey);
+        options.baseUrl = baseUrl ?? "";
+        handler.next(options);
+      },
+    ));
+
+    dio.interceptors.add(LogInterceptor(responseBody: false));
+
     return dio;
   }
 }
