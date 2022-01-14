@@ -27,9 +27,7 @@ class NetworkConfigRepository {
     var ip = storage.get(cache_keys.baseUrlIp);
     var port = storage.get(cache_keys.baseUrPort);
 
-    print(ip);
-    print(port);
-    await storage.close();
+    if (ip == null && port == null) return null;
 
     return {
       "ip": ip,

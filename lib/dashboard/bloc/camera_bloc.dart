@@ -24,8 +24,7 @@ class CameraCubit extends Cubit<CameraState> {
   void _onNewCameraAdded(Camera newCamera) async {
     var cameras = [...state.data];
     var newCameras = [...cameras, newCamera];
-    print(newCameras);
-    print(state.data);
+
     emit(
       state.copyWith(
         status: CameraFetchStatus.success,
@@ -56,8 +55,8 @@ class CameraCubit extends Cubit<CameraState> {
 
   @override
   Future<void> close() {
-    _newCameraSubscription.cancel();
     _cameraRepository.dispose();
+    _newCameraSubscription.cancel();
     return super.close();
   }
 }
