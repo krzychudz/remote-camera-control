@@ -1,3 +1,4 @@
+import 'package:app/common/model/camera/camera.dart';
 import 'package:app/injection/injection.dart';
 import 'package:app/network/services/camera/camera_service_interface.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +10,10 @@ class LivestreamView extends StatefulWidget {
   const LivestreamView({
     Key? key,
     this.debugMode,
-    required this.framesUrl,
+    required this.camera,
   }) : super(key: key);
 
-  final String? framesUrl;
+  final Camera? camera;
   final bool? debugMode;
 
   @override
@@ -26,8 +27,14 @@ class _LivestreamViewState extends State<LivestreamView> {
   @override
   void initState() {
     super.initState();
+    _startStream();
+  }
+
+  void _startStream() async {
+    var framesUrl = await widget.camera?.cameraStreamUrl;
+
     livestreamManager = LivestreamManager(
-      streamUrl: widget.framesUrl ?? "",
+      streamUrl: framesUrl ?? "",
       cameraService: getIt<CameraServiceInterface>(),
     )..start();
   }

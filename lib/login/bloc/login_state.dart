@@ -1,32 +1,32 @@
+import 'package:app/common/model/email.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 
 import '../../../../common/model/password.dart';
-import '../../../../common/model/username.dart';
 
 class LoginState extends Equatable {
   const LoginState({
     this.status = FormzStatus.pure,
-    this.username = const Username.pure(),
+    this.email = const Email.pure(),
     this.password = const Password.pure(),
   });
 
   final FormzStatus status;
-  final Username username;
+  final Email email;
   final Password password;
 
   LoginState copyWith({
     FormzStatus? status,
-    Username? username,
+    Email? email,
     Password? password,
   }) {
     return LoginState(
       status: status ?? this.status,
-      username: username ?? this.username,
+      email: email ?? this.email,
       password: password ?? this.password,
     );
   }
 
   @override
-  List<Object> get props => [status, username, password];
+  List<Object> get props => [status, email, password];
 }

@@ -1,3 +1,4 @@
+import 'package:app/common/model/email.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/gestures.dart';
@@ -63,22 +64,31 @@ class LoginForm extends StatelessWidget {
 
   Widget _buildLoginFormField() {
     return BlocBuilder<LoginBloc, LoginState>(
-      buildWhen: (previous, current) => previous.username != current.username,
+      buildWhen: (previous, current) => previous.email != current.email,
       builder: (context, state) {
         return TextField(
-          textInputAction: TextInputAction.next,
-          key: const Key('loginForm_usernameInput_textField'),
-          onChanged: (username) => context.read<LoginBloc>().add(
-                LoginUsernameChanged(username),
-              ),
-          decoration: InputDecoration(
+            textInputAction: TextInputAction.next,
+            key: const Key('loginForm_emailInput_textField'),
+            onChanged: (username) => context.read<LoginBloc>().add(
+                  LoginUsernameChanged(username),
+                ),
+            decoration: InputDecoration(
               border: const OutlineInputBorder(),
-              labelText: tr('username'),
+              labelText: tr('email_label'),
               errorText:
-                  state.username.invalid ? tr('user_name_empty_error') : null),
-        );
+                  state.email.invalid ? _getEmailErrorField(state) : null,
+            ));
       },
     );
+  }
+
+  String _getEmailErrorField(LoginState state) {
+    if (state.email.error == EmailValidationError.empty) {
+      return tr('email_empty_error');
+    } else if (state.email.error == EmailValidationError.invalidFormat) {
+      return tr('email_invalid_format_error');
+    }
+    return "";
   }
 
   Widget _buildPasswordFormField() {
@@ -156,6 +166,25 @@ class LoginForm extends StatelessWidget {
     );
   }
 
+  GestureDetector _buildConfigurationSection(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed("/network_cofiguration");
+      },
+      child: RichText(
+        textAlign: TextAlign.center,
+        text: const TextSpan(
+          text: "Base station configuration",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 14,
+            decoration: TextDecoration.underline,
+          ),
+        ),
+      ),
+    );
+  }
+
   void _onSubmitPressed(BuildContext context) {
     FocusManager.instance.primaryFocus?.unfocus();
     context.read<LoginBloc>().add(
@@ -180,9 +209,15 @@ class LoginForm extends StatelessWidget {
           height: 8,
         ),
         Expanded(
-          child: Container(
-            alignment: Alignment.bottomCenter,
-            child: _buildRegisterSection(context),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              _buildRegisterSection(context),
+              const SizedBox(
+                height: 8,
+              ),
+              _buildConfigurationSection(context),
+            ],
           ),
         ),
       ],

@@ -1,3 +1,4 @@
+import 'package:app/common/model/email.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 
@@ -24,10 +25,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginUsernameChanged event,
     Emitter<LoginState> emit,
   ) {
-    final username = Username.dirty(event.username);
+    final email = Email.dirty(event.username);
     emit(state.copyWith(
-      username: username,
-      status: Formz.validate([state.password, username]),
+      email: email,
+      status: Formz.validate([state.password, email]),
     ));
   }
 
@@ -38,7 +39,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     final password = Password.dirty(event.password);
     emit(state.copyWith(
       password: password,
-      status: Formz.validate([password, state.username]),
+      status: Formz.validate([password, state.email]),
     ));
   }
 
@@ -50,7 +51,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       try {
         await _authenticationRepository.logIn(
-          username: state.username.value,
+          email: state.email.value,
           password: state.password.value,
         );
         emit(state.copyWith(status: FormzStatus.submissionSuccess));

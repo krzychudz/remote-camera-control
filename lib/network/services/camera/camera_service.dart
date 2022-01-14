@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:app/common/model/camera/camera.dart';
 import 'package:app/network/services/camera/camera_service_interface.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:app/extensions/response_extenstion.dart';
 
 import '../../api_client.dart';
 
@@ -19,5 +22,22 @@ class CameraService implements CameraServiceInterface {
       options: Options(responseType: ResponseType.bytes),
     );
     return Uint8List.fromList(response.data!);
+  }
+
+  @override
+  Future<Response<ResponseBody>> addCamera(Map<String, String> body) async {
+    return await apiClient.client.post<ResponseBody>("api/cameras", data: body);
+  }
+
+  @override
+  Future<List<Camera>> getCameras() async {
+    var response = await apiClient.client.get<String>("api/cameras");
+
+    if (!response.isSuccessful()) {
+      throw Exception(response.statusMessage);
+    }
+
+    List camerasRaw = json.decode(response.data.toString());
+    return camerasRaw.map((e) => Camera.fromJson(e)).toList();
   }
 }

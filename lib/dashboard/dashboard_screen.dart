@@ -14,7 +14,6 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CameraCubit, CameraState>(
-      buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         switch (state.status) {
           case CameraFetchStatus.inProgress:
@@ -28,6 +27,17 @@ class DashboardScreen extends StatelessWidget {
               ).tr(),
             );
           case CameraFetchStatus.success:
+            if (state.data.isEmpty) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: const Text(
+                    'camera_empty_info',
+                    textAlign: TextAlign.center,
+                  ).tr(),
+                ),
+              );
+            }
             return CamerasList(
               camerasData: state.data,
             );
@@ -91,16 +101,20 @@ class CameraView extends StatelessWidget {
           children: [
             SizedBox(
               width: double.infinity,
-              child: Image.network(
-                cameraData.cameraStreamUrl ?? "",
-                fit: BoxFit.fill,
-                errorBuilder: (context, error, stackTrace) =>
-                    const CameraLoadingPlaceholder(),
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return const CameraLoadingPlaceholder();
-                },
-              ),
+              child: FutureBuilder<String>(
+                  future: cameraData.cameraStreamUrl,
+                  builder: (context, snapshot) {
+                    return Image.network(
+                      snapshot.requireData,
+                      fit: BoxFit.fill,
+                      errorBuilder: (context, error, stackTrace) =>
+                          const CameraLoadingPlaceholder(),
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return const CameraLoadingPlaceholder();
+                      },
+                    );
+                  }),
             ),
             CameraHeader(
               cameraName: cameraData.cameraName ?? tr('unknown'),

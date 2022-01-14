@@ -1,5 +1,6 @@
 import 'package:app/auth/bloc/authentication_bloc.dart';
 import 'package:app/auth/user.dart';
+import 'package:app/repositories/network_config/network_config_repository.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,8 +28,10 @@ class SettingsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Header(headerTitle: tr('user_information')),
+            const UserInfoSection(),
+            const Header(headerTitle: "Network configuration"),
             const Expanded(
-              child: UserInfoSection(),
+              child: NetworkConfigurationLine(),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -42,6 +45,43 @@ class SettingsScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class NetworkConfigurationLine extends StatelessWidget {
+  const NetworkConfigurationLine({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Map<String, String>?>(
+      future: RepositoryProvider.of<NetworkConfigRepository>(context)
+          .getIpAndPort(),
+      builder: (context, snapshot) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text("IP Address"),
+                Text(
+                  "${snapshot.data?["ip"] ?? "xxxx"} : ${snapshot.data?["port"] ?? "xx"}",
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed("/network_cofiguration");
+                  },
+                  icon: const Icon(Icons.arrow_right),
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -69,10 +109,6 @@ class UserInfoSection extends StatelessWidget {
           ),
           const SizedBox(
             height: 8,
-          ),
-          UserInfoRow(
-            label: tr('last_name'),
-            value: userInfo.lastName,
           ),
           const SizedBox(
             height: 8,

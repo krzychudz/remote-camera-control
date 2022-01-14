@@ -1,3 +1,4 @@
+import 'package:app/common/model/email.dart';
 import 'package:app/common/snackbar/snackbar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +69,34 @@ class RegistrationForm extends StatelessWidget {
         );
       },
     );
+  }
+
+  Widget _buildEmailFormField() {
+    return BlocBuilder<RegisterCubit, RegisterState>(
+      buildWhen: (previous, current) => previous.email != current.email,
+      builder: (context, state) {
+        return TextField(
+          textInputAction: TextInputAction.next,
+          onChanged: (email) =>
+              context.read<RegisterCubit>().onEmailChanged(email),
+          key: const Key('registerForm_emailInput_textField'),
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            labelText: tr('email_label'),
+            errorText: state.email.invalid ? _getEmailErrorField(state) : null,
+          ),
+        );
+      },
+    );
+  }
+
+  String _getEmailErrorField(RegisterState state) {
+    if (state.email.error == EmailValidationError.empty) {
+      return tr('email_empty_error');
+    } else if (state.email.error == EmailValidationError.invalidFormat) {
+      return tr('email_invalid_format_error');
+    }
+    return "";
   }
 
   Widget _buildPasswordFormField() {
@@ -168,6 +197,10 @@ class RegistrationForm extends StatelessWidget {
             ).tr(),
             const SizedBox(
               height: 32,
+            ),
+            _buildEmailFormField(),
+            const SizedBox(
+              height: 16,
             ),
             _buildUsernameFormField(),
             const SizedBox(

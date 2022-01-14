@@ -34,6 +34,9 @@
     "room_empty_error": "Camera Room cannot be empty",
     "camera_name": "Camera Name",
     "camera_name_empty_error": "Camera Name cannot be empty",
-    "camera_add_explanation": "Provide necessary information to install your camera. You will find camera ID on the device"
-
+    "camera_add_explanation": "Provide necessary information to install your camera. You will find camera ID on the device",
+    "email_label": "Email",
+    "email_invalid_format_error": "Wrong pattern",
+    "email_empty_error": "Email cannot be empty",
+    "camera_empty_info": "You have no cameras installed.\n Click on + button to add your first camera."
 }

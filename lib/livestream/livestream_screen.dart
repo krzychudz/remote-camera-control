@@ -17,7 +17,7 @@ class LivestreamScreen extends StatelessWidget {
         title: Text('Livestream ${camera?.cameraName}'),
       ),
       body: LivestreamView(
-        framesUrl: camera?.cameraStreamUrl,
+        camera: camera,
         debugMode: true,
       ),
     );

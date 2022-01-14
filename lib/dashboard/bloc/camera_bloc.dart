@@ -1,15 +1,37 @@
+import 'dart:async';
+
+import 'package:app/common/model/camera/camera.dart';
+import 'package:app/repositories/camera_repository_interface.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../dashboard/bloc/camera_state.dart';
-import '../../repositories/camera_repository.dart';
 
 class CameraCubit extends Cubit<CameraState> {
   CameraCubit({
-    required CameraRepository cameraRepository,
+    required CameraRepositoryInterface cameraRepository,
   })  : _cameraRepository = cameraRepository,
-        super(const CameraState());
+        super(const CameraState()) {
+    _newCameraSubscription =
+        _cameraRepository.newCameraStream.listen((newCamera) {
+      print("new camera ${newCamera.cameraId}");
+      _onNewCameraAdded(newCamera);
+    });
+  }
 
-  final CameraRepository _cameraRepository;
+  final CameraRepositoryInterface _cameraRepository;
+  late final StreamSubscription _newCameraSubscription;
+
+  void _onNewCameraAdded(Camera newCamera) async {
+    var cameras = [...state.data];
+    var newCameras = [...cameras, newCamera];
+
+    emit(
+      state.copyWith(
+        status: CameraFetchStatus.success,
+        data: [...newCameras],
+      ),
+    );
+  }
 
   void onCameraFetched() async {
     emit(
@@ -29,5 +51,12 @@ class CameraCubit extends Cubit<CameraState> {
         state.copyWith(status: CameraFetchStatus.failure),
       );
     }
+  }
+
+  @override
+  Future<void> close() {
+    _cameraRepository.dispose();
+    _newCameraSubscription.cancel();
+    return super.close();
   }
 }

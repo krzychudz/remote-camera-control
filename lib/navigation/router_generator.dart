@@ -1,4 +1,5 @@
 import 'package:app/camera_installation/camera_installation_page.dart';
+import 'package:app/network_config/network_config_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/model/camera/camera.dart';
@@ -37,8 +38,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case "/camera_installation":
       destination = const CameraInstallationPage();
       break;
+    case "/network_cofiguration":
+      print("Here");
+      destination = NetworkConfigScreen();
+      break;
     default:
-      destination = const LoginScreen();
+      destination = const LoginPage();
   }
 
   return MaterialPageRoute(builder: (context) => destination);
