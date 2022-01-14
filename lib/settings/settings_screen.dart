@@ -64,10 +64,20 @@ class NetworkConfigurationLine extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
           child: Align(
             alignment: Alignment.topCenter,
-            child: UserInfoRow(
-              label: "IP Address",
-              value:
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text("IP Address"),
+                Text(
                   "${snapshot.data?["ip"] ?? "xxxx"} : ${snapshot.data?["port"] ?? "xx"}",
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed("/network_cofiguration");
+                  },
+                  icon: const Icon(Icons.arrow_right),
+                )
+              ],
             ),
           ),
         );
