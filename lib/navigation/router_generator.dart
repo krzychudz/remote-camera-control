@@ -39,7 +39,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       destination = const CameraInstallationPage();
       break;
     case "/network_cofiguration":
-      print("Here");
       destination = NetworkConfigScreen();
       break;
     default:

@@ -31,7 +31,6 @@ class _LivestreamViewState extends State<LivestreamView> {
     livestreamManager = LivestreamManager(
       cameraId: widget.camera?.cameraId ?? "",
       cameraService: getIt<CameraServiceInterface>(),
-      intervalMiliseconds: 2000,
     )..start();
   }
 
@@ -43,7 +42,8 @@ class _LivestreamViewState extends State<LivestreamView> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.expand(
+    return SizedBox(
+      width: double.infinity,
       child: StreamBuilder<Uint8List>(
         stream: livestreamManager?.framesStream,
         builder: (context, snapshot) {
@@ -66,7 +66,7 @@ class _LivestreamViewState extends State<LivestreamView> {
 
           return Image.memory(
             snapshot.data as Uint8List,
-            fit: BoxFit.fill,
+            fit: BoxFit.fitWidth,
             gaplessPlayback: true,
           );
         },

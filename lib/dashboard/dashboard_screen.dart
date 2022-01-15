@@ -146,7 +146,6 @@ class CameraThumbnail extends StatelessWidget {
             snapshot.data!,
             fit: BoxFit.fill,
             errorBuilder: (context, error, stackTrace) {
-              print(error);
               return const CameraLoadingPlaceholder();
             },
           );
