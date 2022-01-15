@@ -25,7 +25,7 @@ class UserRepository {
         .registerUser({"name": username, "email": email, "password": password});
 
     if (!response.isSuccessful()) {
-      throw Exception(response.data?.statusMessage);
+      throw Exception(response.statusMessage);
     }
   }
 }

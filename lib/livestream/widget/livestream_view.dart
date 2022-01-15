@@ -27,14 +27,9 @@ class _LivestreamViewState extends State<LivestreamView> {
   @override
   void initState() {
     super.initState();
-    _startStream();
-  }
-
-  void _startStream() async {
-    var framesUrl = await widget.camera?.cameraStreamUrl;
 
     livestreamManager = LivestreamManager(
-      streamUrl: framesUrl ?? "",
+      cameraId: widget.camera?.cameraId ?? "",
       cameraService: getIt<CameraServiceInterface>(),
     )..start();
   }
@@ -47,32 +42,35 @@ class _LivestreamViewState extends State<LivestreamView> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.expand(
-      child: StreamBuilder(
-          stream: livestreamManager?.framesStream,
-          builder: (context, snapshot) {
-            if (widget.debugMode == true) {
-              _calculateFPS();
-            }
+    return SizedBox(
+      width: double.infinity,
+      child: StreamBuilder<Uint8List>(
+        stream: livestreamManager?.framesStream,
+        builder: (context, snapshot) {
+          if (widget.debugMode == true) {
+            _calculateFPS();
+          }
 
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-
-            if (snapshot.hasError) {
-              return const Center(
-                child: Text("Something went wrong"),
-              );
-            }
-
-            return Image.memory(
-              snapshot.data as Uint8List,
-              fit: BoxFit.fill,
-              gaplessPlayback: true,
+          if (snapshot.connectionState == ConnectionState.waiting ||
+              snapshot.data == null) {
+            return const Center(
+              child: CircularProgressIndicator(),
             );
-          }),
+          }
+
+          if (snapshot.hasError) {
+            return const Center(
+              child: Text("Something went wrong"),
+            );
+          }
+
+          return Image.memory(
+            snapshot.data as Uint8List,
+            fit: BoxFit.fitWidth,
+            gaplessPlayback: true,
+          );
+        },
+      ),
     );
   }
 

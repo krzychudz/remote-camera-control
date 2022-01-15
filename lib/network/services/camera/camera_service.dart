@@ -16,17 +16,18 @@ class CameraService implements CameraServiceInterface {
   final ApiClient apiClient;
 
   @override
-  Future<Uint8List> getCameraFrame(String cameraStreamUrl) async {
+  Future<Uint8List> getCameraFrame(String cameraId) async {
     var response = await apiClient.client.get<List<int>>(
-      cameraStreamUrl,
-      options: Options(responseType: ResponseType.bytes),
+      "api/cameras/$cameraId",
+      options:
+          Options(responseType: ResponseType.bytes, contentType: "image/jpeg"),
     );
     return Uint8List.fromList(response.data!);
   }
 
   @override
-  Future<Response<ResponseBody>> addCamera(Map<String, String> body) async {
-    return await apiClient.client.post<ResponseBody>("api/cameras", data: body);
+  Future<Response<dynamic>> addCamera(Map<String, String> body) async {
+    return await apiClient.client.post<dynamic>("api/cameras", data: body);
   }
 
   @override
@@ -38,6 +39,9 @@ class CameraService implements CameraServiceInterface {
     }
 
     List camerasRaw = json.decode(response.data.toString());
-    return camerasRaw.map((e) => Camera.fromJson(e)).toList();
+
+    return camerasRaw
+        .map((e) => Camera.fromJson(e as Map<String, dynamic>))
+        .toList();
   }
 }

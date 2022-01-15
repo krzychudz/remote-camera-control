@@ -1,6 +1,3 @@
-import 'package:hive/hive.dart';
-import 'package:app/cache/cache_keys.dart' as CacheKeys;
-
 class Camera {
   Camera({
     required this.cameraName,
@@ -8,7 +5,7 @@ class Camera {
     required this.cameraLocation,
   });
 
-  Camera.fromJson(Map<String, String> cameraJson)
+  Camera.fromJson(Map<String, dynamic> cameraJson)
       : cameraName = cameraJson["title"],
         cameraId = cameraJson["id"],
         cameraLocation = cameraJson["description"];
@@ -24,10 +21,4 @@ class Camera {
   final String? cameraName;
   final String? cameraId;
   final String? cameraLocation;
-
-  Future<String> get cameraStreamUrl async {
-    var storage = await Hive.openBox(CacheKeys.baseUrlBoxName);
-    String? baseUrl = storage.get(CacheKeys.baseUrlKey);
-    return "${baseUrl}api/cameras/$cameraId";
-  }
 }

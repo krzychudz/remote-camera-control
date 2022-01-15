@@ -13,7 +13,6 @@ class CameraCubit extends Cubit<CameraState> {
         super(const CameraState()) {
     _newCameraSubscription =
         _cameraRepository.newCameraStream.listen((newCamera) {
-      print("new camera ${newCamera.cameraId}");
       _onNewCameraAdded(newCamera);
     });
   }
@@ -55,7 +54,6 @@ class CameraCubit extends Cubit<CameraState> {
 
   @override
   Future<void> close() {
-    _cameraRepository.dispose();
     _newCameraSubscription.cancel();
     return super.close();
   }

@@ -13,8 +13,8 @@ class UserService implements UserServiceInterface {
   final ApiClient apiClient;
 
   @override
-  Future<Response<ResponseBody>> registerUser(Map<String, dynamic> body) {
-    return ApiClient().client.post<ResponseBody>("api/register", data: body);
+  Future<Response<dynamic>> registerUser(Map<String, dynamic> body) {
+    return ApiClient().client.post<dynamic>("api/register", data: body);
   }
 
   @override

@@ -4,7 +4,6 @@ import 'package:hive/hive.dart';
 class NetworkConfigRepository {
   Future<void> setBaseUrl(String ip, String? port) async {
     var baseUrl = "http://$ip:${port ?? "80"}/";
-    print(baseUrl);
 
     var storage = await Hive.openBox(cache_keys.baseUrlBoxName);
     storage.put(cache_keys.baseUrlKey, baseUrl);
