@@ -16,9 +16,9 @@ class CameraService implements CameraServiceInterface {
   final ApiClient apiClient;
 
   @override
-  Future<Uint8List> getCameraFrame(String cameraStreamUrl) async {
+  Future<Uint8List> getCameraFrame(String cameraId) async {
     var response = await apiClient.client.get<List<int>>(
-      cameraStreamUrl,
+      "api/cameras/$cameraId",
       options:
           Options(responseType: ResponseType.bytes, contentType: "image/jpeg"),
     );

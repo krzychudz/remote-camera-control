@@ -4,14 +4,14 @@ import 'package:app/network/services/camera/camera_service_interface.dart';
 
 class LivestreamManager {
   LivestreamManager({
-    required this.streamUrl,
+    required this.cameraId,
     this.intervalMiliseconds = 30,
     required this.cameraService,
   });
 
   final CameraServiceInterface cameraService;
 
-  final String streamUrl;
+  final String cameraId;
   final int intervalMiliseconds;
 
   StreamController<Uint8List>? _streamController;
@@ -22,7 +22,7 @@ class LivestreamManager {
   void start() {
     _streamController = StreamController();
 
-    if (streamUrl.isEmpty) {
+    if (cameraId.isEmpty) {
       _streamController?.addError(
         Exception("URL cannot be null"),
       );
@@ -38,7 +38,7 @@ class LivestreamManager {
 
   void _getNewFrame() async {
     try {
-      var frameResponse = await cameraService.getCameraFrame(streamUrl);
+      var frameResponse = await cameraService.getCameraFrame(cameraId);
       _streamController?.add(frameResponse);
     } catch (e) {
       print('------Livestream exeption: ${e.toString()} -------');

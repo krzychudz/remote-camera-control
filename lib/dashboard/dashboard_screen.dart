@@ -1,7 +1,12 @@
+import 'dart:typed_data';
+
+import 'package:app/injection/injection.dart';
+import 'package:app/network/services/camera/camera_service_interface.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 import '../common/model/camera/camera.dart';
 import '../../dashboard/bloc/camera_bloc.dart';
@@ -101,22 +106,7 @@ class CameraView extends StatelessWidget {
           children: [
             SizedBox(
               width: double.infinity,
-              child: FutureBuilder<String>(
-                  future: cameraData.cameraStreamUrl,
-                  builder: (context, snapshot) {
-                    return Image.network(
-                      snapshot.data ?? "",
-                      fit: BoxFit.fill,
-                      errorBuilder: (context, error, stackTrace) {
-                        print(error);
-                        return const CameraLoadingPlaceholder();
-                      },
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return const CameraLoadingPlaceholder();
-                      },
-                    );
-                  }),
+              child: CameraThumbnail(cameraData: cameraData),
             ),
             CameraHeader(
               cameraName: cameraData.cameraName ?? tr('unknown'),
@@ -126,6 +116,41 @@ class CameraView extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class CameraThumbnail extends StatelessWidget {
+  const CameraThumbnail({
+    Key? key,
+    required this.cameraData,
+  }) : super(key: key);
+
+  final Camera cameraData;
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Uint8List>(
+        future: getIt<CameraServiceInterface>().getCameraFrame(
+          cameraData.cameraId ?? "",
+        ),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CameraLoadingPlaceholder();
+          }
+
+          if (snapshot.hasError) {
+            return const CameraLoadingPlaceholder();
+          }
+
+          return Image.memory(
+            snapshot.data!,
+            fit: BoxFit.fill,
+            errorBuilder: (context, error, stackTrace) {
+              print(error);
+              return const CameraLoadingPlaceholder();
+            },
+          );
+        });
   }
 }
 

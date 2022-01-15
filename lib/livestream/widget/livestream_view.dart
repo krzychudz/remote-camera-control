@@ -27,18 +27,12 @@ class _LivestreamViewState extends State<LivestreamView> {
   @override
   void initState() {
     super.initState();
-    _startStream();
-  }
 
-  void _startStream() async {
-    var framesUrl = await widget.camera?.cameraStreamUrl;
-
-    setState(() {
-      livestreamManager = LivestreamManager(
-        streamUrl: framesUrl ?? "",
-        cameraService: getIt<CameraServiceInterface>(),
-      )..start();
-    });
+    livestreamManager = LivestreamManager(
+      cameraId: widget.camera?.cameraId ?? "",
+      cameraService: getIt<CameraServiceInterface>(),
+      intervalMiliseconds: 2000,
+    )..start();
   }
 
   @override
