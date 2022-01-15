@@ -25,8 +25,8 @@ class CameraService implements CameraServiceInterface {
   }
 
   @override
-  Future<Response<ResponseBody>> addCamera(Map<String, String> body) async {
-    return await apiClient.client.post<ResponseBody>("api/cameras", data: body);
+  Future<Response<dynamic>> addCamera(Map<String, String> body) async {
+    return await apiClient.client.post<dynamic>("api/cameras", data: body);
   }
 
   @override

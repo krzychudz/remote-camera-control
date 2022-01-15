@@ -55,7 +55,6 @@ class CameraCubit extends Cubit<CameraState> {
 
   @override
   Future<void> close() {
-    _cameraRepository.dispose();
     _newCameraSubscription.cancel();
     return super.close();
   }

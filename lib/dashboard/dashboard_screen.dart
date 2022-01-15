@@ -105,10 +105,12 @@ class CameraView extends StatelessWidget {
                   future: cameraData.cameraStreamUrl,
                   builder: (context, snapshot) {
                     return Image.network(
-                      snapshot.requireData,
+                      snapshot.data ?? "",
                       fit: BoxFit.fill,
-                      errorBuilder: (context, error, stackTrace) =>
-                          const CameraLoadingPlaceholder(),
+                      errorBuilder: (context, error, stackTrace) {
+                        print(error);
+                        return const CameraLoadingPlaceholder();
+                      },
                       loadingBuilder: (context, child, loadingProgress) {
                         if (loadingProgress == null) return child;
                         return const CameraLoadingPlaceholder();

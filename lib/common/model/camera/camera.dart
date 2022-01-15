@@ -28,6 +28,7 @@ class Camera {
   Future<String> get cameraStreamUrl async {
     var storage = await Hive.openBox(CacheKeys.baseUrlBoxName);
     String? baseUrl = storage.get(CacheKeys.baseUrlKey);
+    print("BaseURL: ${baseUrl}api/cameras/$cameraId");
     return "${baseUrl}api/cameras/$cameraId";
   }
 }

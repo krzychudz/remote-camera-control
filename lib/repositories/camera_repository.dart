@@ -10,7 +10,7 @@ class CameraRepository implements CameraRepositoryInterface {
 
   final CameraServiceInterface cameraService;
 
-  final _cameraStreamControler = StreamController<Camera>();
+  final _cameraStreamControler = StreamController<Camera>.broadcast();
 
   @override
   Stream<Camera> get newCameraStream => _cameraStreamControler.stream;
