@@ -42,9 +42,9 @@ class CameraRepository implements CameraRepositoryInterface {
     _cameraStreamControler.add(
       Camera.fromJson(
         {
-          "cameraName": cameraName,
-          "cameraLocation": cameraRoom,
-          "cameraId": cameraId
+          "title": cameraName,
+          "description": cameraRoom,
+          "id": cameraId,
         },
       ),
     );
