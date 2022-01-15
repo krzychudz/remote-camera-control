@@ -19,7 +19,8 @@ class CameraService implements CameraServiceInterface {
   Future<Uint8List> getCameraFrame(String cameraStreamUrl) async {
     var response = await apiClient.client.get<List<int>>(
       cameraStreamUrl,
-      options: Options(responseType: ResponseType.bytes),
+      options:
+          Options(responseType: ResponseType.bytes, contentType: "image/jpeg"),
     );
     return Uint8List.fromList(response.data!);
   }
