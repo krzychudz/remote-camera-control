@@ -8,7 +8,7 @@ class Camera {
     required this.cameraLocation,
   });
 
-  Camera.fromJson(Map<String, String> cameraJson)
+  Camera.fromJson(Map<String, dynamic> cameraJson)
       : cameraName = cameraJson["title"],
         cameraId = cameraJson["id"],
         cameraLocation = cameraJson["description"];
